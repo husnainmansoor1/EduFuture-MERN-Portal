@@ -1,0 +1,27 @@
+/* ================= Dashboard Layout ================= */
+.dashboard-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.dashboard-body {
+  display: flex;
+  margin-top: 60px;
+  height: calc(100vh - 60px);
+}
+
+.dashboard-content {
+  flex: 1;
+  margin-left: 230px;
+  height: 100%;
+  padding: 20px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+/* Adjust content when sidebar is collapsed */
+.sidebar.collapsed ~ .dashboard-content {
+  margin-left: 70px;
+}

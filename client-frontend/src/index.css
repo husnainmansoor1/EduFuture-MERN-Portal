@@ -1,0 +1,82 @@
+/* ================= Theme Variables ================= */
+body.light-theme {
+  /* Global */
+  --bg-color: #ffffff;
+  --text-color: #111;
+  --navbar-bg: #ffffff;
+  --sidebar-bg: #ffffff;
+  --card-bg: #ffffff;
+  --card-border: #bfbfbf;
+  --hover-bg: #f1f1f1;
+  --hover-text: #1967d2;
+  --border-color: #dadce0;
+  --accent-color: #2c88d9;
+  --accent-hover: #d9eaff;
+  --muted-text: #777;
+  --muted-text-2: #504f4f;
+  --content-post: #515050;
+  --bg-login-color: #f1f1f1;
+  --text-login-color: #111;
+  --input-bg: #dcdada;
+  --input-text: #646262;
+  --input-border: #ccc;
+  --button-bg: #007bff;
+  --button-hover: #0056b3;
+  --link-color: #007bff;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --cross-bar-color: #333;
+  --modal-bg: #ffffff;
+  --modal-border: #e5e7eb;
+  --primary-color: #2ecc71;
+  --primary-hover: #27ae60;
+  --secondary-text: #6b7280;
+  --input-bg-2: #f9fafb;
+  --avator-bg: #080808;
+  --avator-color: #ffffff;
+}
+
+/* Dark Theme */
+body.dark-theme {
+  --modal-bg: #2c2c2c;
+  --avator-bg: #ffffff;
+  --avator-color: #080808;
+  --modal-border: #9b9a9a;
+  --primary-color: #2ecc71;
+  --primary-hover: #07fe6e;
+  --text-color: #f9f7f7;
+  --secondary-text: #626262;
+  --input-bg-2: #3c3c3c;
+  --bg-color: #2c2c2c;
+  --text-color: #f9f7f7;
+  --navbar-bg: #494848;
+  --sidebar-bg: #494848;
+  --card-bg: #363636;
+  --card-border: #9b9a9a;
+  --hover-bg: #333;
+  --hover-text: #ffffff;
+  --border-color: #444;
+  --accent-color: #2c88d9;
+  --accent-hover: #9bc9f8;
+  --muted-text: #aaa;
+  --muted-text-2: #1c1c1c;
+  --content-post: #bebebe;
+  --bg-login-color: #3c3c3c;
+  --text-login-color: #4f4c4c;
+  --input-bg: #c2c2c2;
+  --input-text: #444343;
+  --input-border: #444;
+  --button-bg: #0d6efd;
+  --button-hover: #0a58ca;
+  --link-color: #66b2ff;
+  --shadow-color: rgba(246, 246, 246, 0.071);
+  --cross-bar-color: #a3a0a0;
+}
+
+/* Apply theme variables globally */
+body {
+  margin: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+  transition: all 0.3s ease;
+}

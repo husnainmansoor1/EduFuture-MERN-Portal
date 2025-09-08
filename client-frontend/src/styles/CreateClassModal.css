@@ -1,0 +1,130 @@
+.create-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.create-modal-box {
+  background-color: var(--bg-color);
+  padding: 25px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%; 
+  position: relative;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.create-modal-box h2 {
+  margin-bottom: 15px;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.create-modal-box input {
+  display: block;
+  width: 95%;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: rgb(217, 217, 217);
+  border-radius: 10px;
+  color: var(--input-text);
+}
+
+.create-modal-box .create-modal-button {
+  background-color: #2ecc71;
+  width: 100%;
+  color: var(--text-color);
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 10px 0px;
+}
+.create-modal-box .create-modal-button:hover {
+  background-color: #27ae60;
+}
+
+.modal-close-icon {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--cross-bar-color);
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.modal-close-icon:hover {
+  color: #e74c3c; /* red hover */
+}
+
+/* ================= MEDIA QUERIES ================= */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .create-modal-box {
+    width: 80%;
+    padding: 20px;
+  }
+
+  .create-modal-box h2 {
+    font-size: 18px;
+  }
+
+  .create-modal-box input {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .modal-box .create-modal-button {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .modal-box .modal-button-close {
+    width: 90px;
+    font-size: 14px;
+    padding: 8px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .create-modal-box {
+    width: 80%;
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: -100px;
+  }
+
+  .create-modal-box h2 {
+    font-size: 16px;
+  }
+
+  .create-modal-box input {
+    font-size: 13px;
+    padding: 7px;
+  }
+
+  .create-modal-box .create-modal-button {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .create-modal-box .modal-button-close {
+    width: 80px;
+    font-size: 13px;
+    padding: 7px;
+  }
+}
