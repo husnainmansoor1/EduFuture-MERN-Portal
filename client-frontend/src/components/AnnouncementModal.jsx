@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 export default function AnnouncementModal({ onClose, onSubmit, classID, editData = null }) {
   // If editing, prefill values
   const [text, setText] = useState(editData ? editData.text : "");
-  const [file, setFile] = useState(null); // for new upload
+  const [file, setFile] = useState(null); 
   const [linkUrl, setLinkUrl] = useState(editData ? editData.linkUrl : "");
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function AnnouncementModal({ onClose, onSubmit, classID, editData
     try {
       const formData = new FormData();
       formData.append("text", text);
-      if (!editData) formData.append("classID", classID); // only for new announcements
+      if (!editData) formData.append("classID", classID); 
       if (file) formData.append("attachment", file);
       if (linkUrl) formData.append("linkUrl", linkUrl);
 

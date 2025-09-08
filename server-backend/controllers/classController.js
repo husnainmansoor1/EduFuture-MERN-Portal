@@ -1,10 +1,12 @@
 const Class = require("../models/Class");
-const { nanoid } = require("nanoid"); // npm install nanoid
+const { nanoid } = require("nanoid"); 
 
 exports.createClass = async (req, res) => {
   try {
     const { subject, program, room } = req.body;
-    const code = nanoid(6); // short, unique code
+    
+    // Generate a unique 6-character class code
+    const code = nanoid(6);   
 
     const newClass = new Class({
       subject,
@@ -66,7 +68,7 @@ exports.getClassByID = async (req, res) => {
   try {
     const classData = await Class.findOne({
       _id: req.params.classID,
-      teacherID: req.user._id, //  this filters only the logged-in teacher's class
+      teacherID: req.user._id, 
     });
 
     if (!classData) {
