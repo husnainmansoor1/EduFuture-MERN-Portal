@@ -1,0 +1,19 @@
+.FrontPageNavbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background-color: #1a73e8;
+  color: white;
+}
+
+.logo {
+  font-size: 1.3rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.nav-right .login-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+}

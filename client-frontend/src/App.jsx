@@ -11,6 +11,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { ThemeProvider } from "./context/ThemeContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import FrontPage from "./pages/FrontPage";
 
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
     <ThemeProvider>
       <Router>
         <Routes>
+        <Route path="/" element={<FrontPage />} />
           {/* Public Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
