@@ -1,27 +1,24 @@
 const express = require('express');
 const router = express.Router();
-
-const { protect } = require("../middleware/authMiddleware");
+const upload = require("../middleware/uploadMiddleware");
 const contentController = require('../controllers/contentController');
 
-// Multer middleware for file upload
-const upload = require("../middleware/uploadMiddleware");
+const { protect } = require("../middleware/authMiddleware");
 
-//  Route to create content with optional file upload
 router.post(
   '/content',
   protect,
-  upload.single("attachment"), // "attachment" = field name from frontend FormData
+  upload.single("attachment"), 
   contentController.createContent
 );
 
-//  Route to get all content for a specific class
+//  Route to get all content
 router.get('/content/:classID', protect, contentController.getClassContent);
 
-//  Route to get subject name by class ID (no auth required)
+//  Route to get subject name by class ID 
 router.get('/subject/:classID', contentController.getClassSubject);
 
-//  Update content (with optional new file upload)
+//  Update content 
 router.put(
   "/content/:id",
   protect,

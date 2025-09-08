@@ -3,6 +3,7 @@ const router = express.Router();
 const {protect} = require("../middleware/authMiddleware");
 const { createClass, getTeacherClasses, updateClass, deleteClass,getClassByID } = require("../controllers/classController");
 
+// Teacher-specific routes
 router.post("/create", protect, createClass);
 router.get("/my",protect,  getTeacherClasses);
 router.get("/my/:classID", protect, getClassByID);

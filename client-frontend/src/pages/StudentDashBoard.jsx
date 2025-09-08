@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify"; // ✅ toastify import
+import { toast } from "react-toastify"; 
 
 import Navbar from "../components/Navbar"; 
 import Sidebar from "../components/Sidebar"; 

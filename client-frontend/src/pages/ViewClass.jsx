@@ -68,7 +68,6 @@ const ViewClass = () => {
             "Content-Type": "multipart/form-data",
           },
         });
-        toast.success("Announcement updated!");
       } else {
         await axios.post(`${API_BASE}/api/content`, idOrFormData, {
           headers: {
@@ -76,7 +75,6 @@ const ViewClass = () => {
             "Content-Type": "multipart/form-data",
           },
         });
-        toast.success("Announcement posted!");
       }
       fetchClassContent();
     } catch (err) {
@@ -191,7 +189,7 @@ const ViewClass = () => {
                   className="code-text-two copy-code"
                   onClick={() => {
                     navigator.clipboard.writeText(classData?.code);
-                    toast.success("Class code copied ✅");
+                    toast.success("Class code copied ");
                   }}
                 >
                   {classData?.code}

@@ -105,7 +105,7 @@
 }
 
 .modal-button-annoucement {
-  background-color: var(--accent-color);
+  background-color:#577ed8;
   color: white;
   width: 95%;
   padding: 15px 16px;
@@ -118,7 +118,7 @@
 }
 
 .modal-button-annoucement:hover {
-  background-color: var(--accent-hover);
+background-color:#053bfd ;
 }
 
 .modal-text {

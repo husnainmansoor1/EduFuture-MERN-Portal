@@ -9,10 +9,12 @@ exports.joinClass = async (req, res) => {
     const studentId = req.user._id;
 
     // Find the class by code
-    const classData = await Class.findOne({ code }).populate('teacher', 'name');
-    
+    const classData = await Class.findOne({ code }).populate("teacher", "name");
+
     if (!classData) {
-      return res.status(404).json({ message: "Class not found. Please check the class code." });
+      return res
+        .status(404)
+        .json({ message: "Class not found. Please check the class code." });
     }
 
     // Check if student is already enrolled
@@ -22,7 +24,9 @@ exports.joinClass = async (req, res) => {
     });
 
     if (existingEnrollment) {
-      return res.status(400).json({ message: "You are already enrolled in this class." });
+      return res
+        .status(400)
+        .json({ message: "You are already enrolled in this class." });
     }
 
     // Create new enrollment
@@ -33,9 +37,9 @@ exports.joinClass = async (req, res) => {
 
     await enrollment.save();
 
-    res.status(201).json({ 
+    res.status(201).json({
       message: "Successfully joined the class!",
-      class: classData 
+      class: classData,
     });
   } catch (error) {
     console.error("Error joining class:", error);
@@ -50,15 +54,15 @@ exports.getEnrolledClasses = async (req, res) => {
 
     const enrollments = await Enrollment.find({ student: studentId })
       .populate({
-        path: 'class',
+        path: "class",
         populate: {
-          path: 'teacher',
-          select: 'name email'
-        }
+          path: "teacher",
+          select: "name email",
+        },
       })
       .sort({ enrolledAt: -1 });
 
-    const classes = enrollments.map(enrollment => enrollment.class);
+    const classes = enrollments.map((enrollment) => enrollment.class);
 
     res.status(200).json(classes);
   } catch (error) {
@@ -79,7 +83,9 @@ exports.leaveClass = async (req, res) => {
     });
 
     if (!enrollment) {
-      return res.status(404).json({ message: "You are not enrolled in this class." });
+      return res
+        .status(404)
+        .json({ message: "You are not enrolled in this class." });
     }
 
     res.status(200).json({ message: "Successfully left the class." });
@@ -89,7 +95,7 @@ exports.leaveClass = async (req, res) => {
   }
 };
 
-// Get class details for student (similar to teacher's getClassByID but for students)
+// Get class details for a student
 exports.getStudentClassDetails = async (req, res) => {
   try {
     const { classId } = req.params;
@@ -102,10 +108,15 @@ exports.getStudentClassDetails = async (req, res) => {
     });
 
     if (!enrollment) {
-      return res.status(403).json({ message: "You are not enrolled in this class." });
+      return res
+        .status(403)
+        .json({ message: "You are not enrolled in this class." });
     }
 
-    const classData = await Class.findById(classId).populate('teacher', 'name email');
+    const classData = await Class.findById(classId).populate(
+      "teacher",
+      "name email"
+    );
 
     if (!classData) {
       return res.status(404).json({ message: "Class not found." });

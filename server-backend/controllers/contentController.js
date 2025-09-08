@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 
 exports.createContent = async (req, res) => {
   try {
-    console.log("📥 Received content post:", req.body);
-    console.log("📎 Uploaded file:", req.file);
+    console.log(" Received content post:", req.body);
+    console.log(" Uploaded file:", req.file);
 
     const { text, linkUrl, classID } = req.body;
     const teacherID = req.user._id;
@@ -25,7 +25,7 @@ exports.createContent = async (req, res) => {
 
     res.status(201).json(newContent);
   } catch (error) {
-    console.error("❌ Error posting content:", error);
+    console.error(" Error posting content:", error);
     res.status(500).json({ message: "Failed to post content" });
   }
 };
@@ -43,9 +43,8 @@ exports.getClassContent = async (req, res) => {
     const contentList = await Content.find({
       classID: new mongoose.Types.ObjectId(classID),
     })
-      .populate("teacherID", "name")        // Get teacher's name only
-      .populate("classID");                 // Get full class info
-
+      .populate("teacherID", "name")       
+      .populate("classID");                
     res.status(200).json(contentList);
   } catch (error) {
     console.error(" Error fetching content:", error);
