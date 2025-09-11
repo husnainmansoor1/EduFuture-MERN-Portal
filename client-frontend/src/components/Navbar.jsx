@@ -15,7 +15,7 @@ export default function Navbar({ onCreateClick, onSidebarToggle }) {
 
   const handleLogout = () => {
     localStorage.clear();
-    navigate("/login");
+    navigate("/");
     toast.success("Logged out successfully", { duration: 2000 });
   };
 

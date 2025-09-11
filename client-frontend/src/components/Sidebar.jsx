@@ -21,8 +21,8 @@ export default function Sidebar({ onCreateClick, isOpen, subjects = [] }) {
 
   const handleLogout = () => {
     localStorage.clear();
-    navigate("/login");
-    toast.success("Logged out successfully" ,{ autoClose: 4000 });  // ✅ react-toastify toast
+    navigate("/");
+    toast.success("Logged out successfully" ,{ autoClose: 4000 }); 
   };
 
   // Path check

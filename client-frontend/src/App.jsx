@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import ViewClass from "./pages/ViewClass";
 import StudentDashBoard from "./pages/StudentDashBoard";
-import StudentViewClass from "./pages/studentViewClass";
+import StudentViewClass from "./pages/StudentViewClass";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { ThemeProvider } from "./context/ThemeContext";
@@ -68,8 +68,9 @@ export default function App() {
           position="top-right"
           autoClose={3000}
           hideProgressBar={false}
-          theme="colored"
-        />{" "}
+          theme="light"
+        />
+        {" "}
       </Router>
     </ThemeProvider>
   );

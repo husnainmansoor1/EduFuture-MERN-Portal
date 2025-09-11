@@ -6,8 +6,8 @@
 .hero {
   text-align: center;
   padding: 30px 20px;
-  background: linear-gradient(135deg, #1a73e8, #4285f4);
   color: white;
+  background: linear-gradient(135deg, #000103, #e6eaeeca);
 }
 
 .hero h1 {
@@ -32,7 +32,8 @@
 }
 
 .hero button:hover {
-  background-color: #e8f0fe;
+  background: linear-gradient(135deg, #000103, #e6eaeeca);
+  color: white;
 }
 
 .features {
@@ -40,7 +41,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 25px;
-  padding: 52px 20px;
+  padding: 47px 20px;
   background-color: #f5f5f5;
 }
 
@@ -50,13 +51,15 @@
   border-radius: 10px;
   background-color: white;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: 0.3s;
 }
 
 .feature-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #000103, #e6eaeeca);
+  color: white;
 }
 
 .feature-card h3 {
@@ -66,11 +69,11 @@
 .footer {
   text-align: center;
   padding: 20px;
-  background-color: #1a73e8;
+  background: linear-gradient(135deg, #e6eaeeca, #000103);
   color: white;
 }
 
-          /* Responsive  */
+/* Responsive  */
 @media (max-width: 1024px) {
   .hero h1 {
     font-size: 2rem;
@@ -115,6 +118,7 @@
     width: 90%;
     max-width: 300px;
   }
+  
 }
 
 @media (max-width: 480px) {

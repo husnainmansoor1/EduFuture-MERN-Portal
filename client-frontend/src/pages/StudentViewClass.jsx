@@ -74,7 +74,7 @@ const StudentViewClass = () => {
   const handleLogout = () => {
     localStorage.clear();
     toast.success("Logged out successfully!", { autoClose: 2500 });
-    navigate("/login");
+    navigate("/");
   };
 
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);

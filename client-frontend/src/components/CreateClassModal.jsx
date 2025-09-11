@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/CreateClassModal.css";
-import { toast } from "react-toastify"; // ✅ use react-toastify
+import { toast } from "react-toastify";
 
 export default function CreateClassModal({
   openCreateModal,
@@ -44,7 +44,6 @@ export default function CreateClassModal({
       }, 1500);
     } else {
       console.warn("onSubmit prop is not provided!");
-      //  error toast with delay
       setTimeout(() => {
         toast.error("Something went wrong!", { autoClose: 2000 });
       }, 500);

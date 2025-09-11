@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { toast } from "react-toastify";  // ✅ use react-toastify
+import { toast } from "react-toastify";
 import "../styles/JoinClassModal.css";
 
 export default function JoinClassModal({ onClose, onSubmit }) {
@@ -11,10 +11,9 @@ export default function JoinClassModal({ onClose, onSubmit }) {
     e.preventDefault();
 
     if (!classCode.trim()) {
-      // ❌ error toast with delay
       setTimeout(() => {
         toast.error("Please enter a class code", { autoClose: 2500 });
-      }, 500); // 0.5s delay
+      }, 500); 
       return;
     }
 
@@ -46,7 +45,6 @@ export default function JoinClassModal({ onClose, onSubmit }) {
     <div className="modal-overlay">
       <div className="modal-box">
         <div className="modal-box-container">
-          {/* Cross Button Top Right */}
           <button className="modal-close-btn" onClick={onClose}>
             <AiOutlineClose size={22} />
           </button>
