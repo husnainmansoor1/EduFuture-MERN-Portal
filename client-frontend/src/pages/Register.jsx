@@ -1,8 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import { toast } from "react-toastify";   // ✅ Toastify import
-import "react-toastify/dist/ReactToastify.css"; // ✅ Required CSS
+import { toast } from "react-toastify";   
+import "react-toastify/dist/ReactToastify.css"; 
 import Navbar from "../components/Navbar";
 import "../styles/Register.css";
 

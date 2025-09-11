@@ -46,11 +46,6 @@
 }
 
 
-.navbar-icon-btn:hover {
-  background: #c9c9c9;
-  border-radius: 10px;
-}
-
 .navbar-button-logout {
   background: none;
   border: none;
