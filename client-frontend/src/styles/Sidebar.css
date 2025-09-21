@@ -1,10 +1,18 @@
 /* ================= Sidebar ================= */
 .sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  height: calc(100vh - 60px);
+  width: 230px;
   background-color: var(--sidebar-bg);
   color: var(--text-color);
-  height: 100vh;
-  position: fixed;
-  overflow-y: auto;  
+  border-right: 1px solid #ddd;
+  transition: all 0.3s ease;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 
@@ -13,20 +21,20 @@
 }
 
 .sidebar.collapsed {
-  width: 70px; 
+  width: 70px;
 }
 
 .sidebar.expanded {
   width: 240px;
 }
 
-/* Sidebar menu items */
 .sidebar-ul {
   display: flex;
   flex-direction: column;
   margin-top: 80px;
   gap: 8px;
   padding: 0;
+  flex-grow: 1;
 }
 
 .sidebar-li {
@@ -40,33 +48,23 @@
   color: #5f6368;
   font-size: 0.95rem;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .sidebar-li span {
   white-space: nowrap;
+  display: flex;
+  justify-content: space-between;
+  width: 160px;
 }
 
-/* Hover effect */
 .sidebar-li:hover {
   background-color: #a7a7a7;
 }
 
-/* Subjects section */
 .sidebar-subjects {
   margin-top: 20px;
   padding: 0 10px;
-}
-
-/* Scrollbar styling */
-.sidebar::-webkit-scrollbar {
-  width: 8px;
-}
-.sidebar::-webkit-scrollbar-thumb {
-  background: #999;
-  border-radius: 4px;
-}
-.sidebar::-webkit-scrollbar-track {
-  background: transparent;
 }
 
 .sidebar-subjects-title {
@@ -75,14 +73,13 @@
   margin-bottom: 10px;
   padding-bottom: 10px;
   padding-left: 5px;
-  color: var(--text-color);
   border-bottom: 1px solid #ccc;
 }
 
 .subjects-list {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: -20px 0 0 -10px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -96,8 +93,8 @@
   text-decoration: none;
   color: #5f6368;
   font-size: 0.95rem;
-  transition: background-color 0.2s ease;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .subject-item:hover {
@@ -118,32 +115,62 @@
   flex-shrink: 0;
 }
 
-
-
 /* ================= Responsive ================= */
-
 @media (max-width: 768px) {
   .sidebar {
-    width: 60px;
-    left: -70px;
+    width: 70px;
+    left: 0;
   }
 
   .sidebar.expanded {
-    left: 0; /* show sidebar on toggle */
-    width: 70px; /* full width when expanded */
+    width: 240px;
+    left: 0;
   }
 
-  /* Hide text spans on mobile */
   .sidebar-li span {
     display: none;
   }
 
-  /* Center icons vertically */
+  .sidebar.expanded .sidebar-li span {
+    display: flex;
+  }
+
+  .sidebar-subjects {
+    display: none;
+  }
+
+  .sidebar.expanded .sidebar-subjects {
+    display: block;
+  }
+
   .sidebar-li {
     justify-content: center;
     padding: 15px 0;
   }
-  .sidebar-subjects {
-    display: none; /* hide subjects list on mobile */
 }
+
+/* ================= Responsive ================= */
+@media (max-width: 570px) {
+  .sidebar {
+    width: 0;
+    left: -70px;
+  }
+
+  .sidebar.expanded {
+    left: 0;
+    width: 70px;
+  }
+
+  .sidebar-li span {
+    display: none !important;
+  }
+
+  .sidebar-li {
+    justify-content: center;
+    padding: 15px 0;
+  }
+
+  .sidebar-subjects {
+    display: none !important;
+  }
 }

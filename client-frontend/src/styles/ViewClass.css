@@ -11,13 +11,20 @@
   display: flex;
   margin-top: 60px;
   width: 100%;
+  flex-grow: 1;
+}
+.view-main-container{
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 100px;
 }
 
 .view-class-content {
-  flex: 1;
+  width: 75%;
   padding: 20px 40px;
   overflow-y: auto;
-  margin-left: 220px;
+  margin:0 10px 0 140px;
   transition: all 0.3s ease;
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -30,6 +37,7 @@
 .view-modal {
   display: flex;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 .loading-container {
@@ -51,15 +59,18 @@
   background-size: cover;
   background-position: center;
   border-radius: 10px;
-  padding: 110px 20px;
+  padding: 70px 20px;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
   color: #fff;
+  border: 2px solid var(--border-color);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .subject-title {
   position: absolute;
-  top: 30px;
+  top: 10px;
   left: 20px;
   font-size: 2.25rem;
   font-weight: 600;
@@ -67,28 +78,30 @@
 
 .program-title {
   position: absolute;
-  top: 100px;
-  left: 20px;
+  top: 70px;
+  left: 30px;
   font-size: 1.25rem;
   font-weight: 400;
 }
 
 /* ================= Code Box & Modal ================= */
 .class-info-box2 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 27px 0;
   padding: 0px 20px;
-  width: 150px;
+  width: 400px;
   background-color: var(--card-bg);
   border-radius: 10px;
+  height: 60px;
   border: 1px solid var(--border-color);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
 .code-title {
   margin-right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+  width: 100%;
 }
 
 .code-text-one {
@@ -103,28 +116,23 @@
   color: var(--accent-color);
   cursor: pointer;
 }
-
-.modal-button-annoucement {
-  background-color:#577ed8;
-  color: white;
-  width: 95%;
-  padding: 15px 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin: 18px 0px;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
+.code-text-two:hover {
+  color: var(--accent-hover);
 }
 
-.modal-button-annoucement:hover {
-background-color:#053bfd ;
-}
-
-.modal-text {
-  font-size: 1.875rem;
-  color: white;
+.Posted-content-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
   align-items: center;
+  background: var(--card-bg);
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  height: 60px;
+  width: 100%;
 }
 
 /* ================= Posted Content ================= */
@@ -295,52 +303,50 @@ background-color:#053bfd ;
   .sidebar.mobile-open {
     left: 0;
   }
+
+  .class-info-box2 {
+    width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
   .class-info-box1 {
-    padding: 90px 15px;
+    padding: 60px 15px;
   }
 
   .subject-title {
-    font-size: 1.75rem;
-    top: 20px;
+    font-size: 1.5rem;
+    top: 15px;
   }
 
   .program-title {
-    font-size: 1rem;
-    top: 80px;
+    font-size: 0.9rem;
+    top: 60px;
   }
 
   .view-modal {
-    display: flex;
-    gap: -10px;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .code-text-one {
     font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--text-color);
   }
 
-  .modal-button-annoucement {
-    font-size: 0.65rem;
+  .Posted-content-text {
+    font-size: 1rem;
+    height: auto;
+    padding: 8px 12px;
   }
 
   .posted-content-section {
-    margin-bottom: 60px;
-    color: var(--text-color);
-    font-size: 15px;
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-    background-color: var(--hover-bg);
+    margin-bottom: 40px;
+    font-size: 14px;
+    padding: 15px;
   }
 
   .posted-content-section h3 {
-    margin-bottom: 30px;
-    color: var(--text-color);
-    font-size: 20px;
-    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
   }
 }

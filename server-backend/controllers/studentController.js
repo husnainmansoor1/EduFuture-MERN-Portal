@@ -48,28 +48,32 @@ exports.joinClass = async (req, res) => {
 };
 
 // Get all enrolled classes for a student
+// Get all enrolled classes for a student
 exports.getEnrolledClasses = async (req, res) => {
   try {
     const studentId = req.user._id;
 
     const enrollments = await Enrollment.find({ student: studentId })
       .populate({
+        path: "student",   // student ka detail bhi include
+        select: "name email role"
+      })
+      .populate({
         path: "class",
         populate: {
           path: "teacher",
-          select: "name email",
-        },
+          select: "name email role"
+        }
       })
       .sort({ enrolledAt: -1 });
 
-    const classes = enrollments.map((enrollment) => enrollment.class);
-
-    res.status(200).json(classes);
+    res.status(200).json(enrollments);
   } catch (error) {
     console.error("Error fetching enrolled classes:", error);
     res.status(500).json({ message: "Failed to fetch enrolled classes" });
   }
 };
+
 
 // Leave a class
 exports.leaveClass = async (req, res) => {

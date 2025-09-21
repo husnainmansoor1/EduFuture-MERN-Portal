@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify"; 
+import { toast } from "react-toastify";
 
-import Navbar from "../components/Navbar"; 
-import Sidebar from "../components/Sidebar"; 
+import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 import JoinClassModal from "../components/JoinClassModal";
 import StudentClassCard from "../components/StudentClassCard";
 
@@ -19,10 +19,19 @@ export default function StudentDashboard() {
 
   const fetchEnrolledClasses = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/students/enrolled", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setEnrolledClasses(res.data);
+      const res = await axios.get(
+        "http://localhost:5000/api/students/enrolled",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      // Ensure it's always an array and remove null/undefined values
+      const validClasses = Array.isArray(res.data)
+        ? res.data.filter((cls) => cls && cls._id)
+        : [];
+
+      setEnrolledClasses(validClasses);
     } catch (error) {
       toast.error("Failed to fetch enrolled classes", { autoClose: 2000 });
     } finally {
@@ -39,22 +48,22 @@ export default function StudentDashboard() {
       await axios.post("http://localhost:5000/api/students/join", classCode, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      toast.success("Class joined successfully!", { autoClose: 2000 });
       setShowJoinModal(false);
       fetchEnrolledClasses();
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to join class", {
-        autoClose: 2000,
-      });
+      console.error("Error leaving class:", error);
     }
   };
 
   const handleLeaveClass = async (classId) => {
     if (window.confirm("Are you sure you want to leave this class?")) {
       try {
-        await axios.delete(`http://localhost:5000/api/students/leave/${classId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await axios.delete(
+          `http://localhost:5000/api/students/leave/${classId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         toast.success("Class left successfully!", { autoClose: 2000 });
         fetchEnrolledClasses();
       } catch (error) {
@@ -80,12 +89,13 @@ export default function StudentDashboard() {
     <div className="dashboard-container">
       <Navbar
         onSidebarToggle={toggleSidebar}
-        onCreateClick={() => setShowJoinModal(true)} 
+        onCreateClick={() => setShowJoinModal(true)}
       />
 
       <Sidebar
         isOpen={isSidebarOpen}
-        onCreateClick={() => setShowJoinModal(true)} 
+        onCreateClick={() => setShowJoinModal(true)}
+        enrollData={enrolledClasses}
       />
 
       <main className="student-content">
@@ -101,9 +111,9 @@ export default function StudentDashboard() {
             </button>
           </div>
         ) : (
-          enrolledClasses.map((cls) => (
+          enrolledClasses.map((cls, index) => (
             <StudentClassCard
-              key={cls._id}
+              key={cls._id || index} // fallback key
               classData={cls}
               onLeave={handleLeaveClass}
             />

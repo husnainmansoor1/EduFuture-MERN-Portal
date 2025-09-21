@@ -1,23 +1,9 @@
-/* ================= Layout Wrapper ================= */
 .dashboard-layout {
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
 
-.create-first-class-btn{
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #1a73e8;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-/* Navbar fixed at top */
 .navbar {
   position: fixed;
   top: 0;
@@ -45,7 +31,6 @@
   z-index: 9999;
 }
 
-/* Main layout: Sidebar + Content */
 .dashboard-body {
   display: flex;
   flex-direction: column;
@@ -54,39 +39,7 @@
   color: var(--text-color);
 }
 
-/* Sidebar fixed */
-.sidebar {
-  position: fixed;
-  top: 60px;
-  left: 0;
-  height: calc(100vh - 60px);
-  width: 230px;
-  border-right: 1px solid #ddd;
-  transition: all 0.3s ease;
-  z-index: 999;
-}
-
-.sidebar.collapsed {
-  width: 70px;
-}
-
-.sidebar.mobile-open {
-  left: 0 !important;
-}
-
-/* Sidebar menu items for icons/text */
-.sidebar .menu-item {
-  display: flex;
-  align-items: center;
-  padding: 10px 20px;
-  transition: all 0.3s ease;
-}
-
-.sidebar .menu-item span {
-  margin-left: 10px;
-}
-
-/* Content area */
+/* ================= Content ================= */
 .dashboard-content {
   flex: 1;
   margin-left: 230px;
@@ -95,7 +48,6 @@
   transition: margin-left 0.3s ease, width 0.3s ease;
 }
 
-/* Adjust content when sidebar is collapsed */
 .sidebar.collapsed ~ .dashboard-content {
   margin-left: 100px;
 }
@@ -105,110 +57,62 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: calc(100vw - 300px);
+  /* width: calc(100vw - 300px); */
+  width: 100%;
 }
 
 .teacher-content {
   display: grid;
+  /* flex-grow: 1; */
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  margin-top: 120px;
-  margin-left: 230px;
-  width: calc(100vw - 300px);
+  margin: 120px 100px 20px 300px;
+  width: calc(100%-400px);
   padding: 20px;
-  position: absolute;
-}
-
-/* Scrollbar Styling */
-.dashboard-content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.dashboard-content::-webkit-scrollbar-thumb {
-  background: #bbb;
-  border-radius: 4px;
-}
-
-.dashboard-content::-webkit-scrollbar-thumb:hover {
-  background: #888;
-}
-
-.dashboard-content::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  position: relative;
 }
 
 /* ================= Responsive ================= */
 
-/* Tablet */
-@media (max-width: 1024px) {
+@media (max-width: 1024px) and (min-width: 769px) {
   .teacher-content {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 60px;
+    margin-left: 240px;
+    width: calc(100vw - 300px);
+    position: relative;
+    margin-bottom: 20px;
   }
 }
 
-/* Mobile */
 @media (max-width: 768px) {
-  /* Sidebar hidden by default */
-  .sidebar {
-    width: 60px;
-    left: -72px;
-  }
   .teacher-content {
     display: grid;
     grid-template-columns: 1fr;
     gap: 10px;
     margin-top: 60px;
-    margin-left: 60px;
-    width: calc(100vw - 100px);
-    position: absolute;
+    margin-left: 240px;
+    width: calc(100vw - 300px);
+    position: relative;
     margin-bottom: 20px;
   }
 
-  /* Sidebar opens on hamburger click */
-  .sidebar.mobile-open {
-    left: 0;
-  }
-
-  /* Show icons only, hide text */
-  .sidebar .menu-item span {
-    display: none;
-  }
-
-  /* Center icons */
-  .sidebar .menu-item {
-    justify-content: center;
-  }
-
-  /* Content takes full width */
   .dashboard-content {
     margin-left: 0 !important;
-    width: 200px !important;
+    width: 100% !important;
     padding: 10px 15px;
-  }
-
-  /* Navbar hamburger icon visible */
-  .navbar .hamburger {
-    display: block;
-    font-size: 24px;
-    cursor: pointer;
-  }
-
-  /* Hide normal navbar items */
-  .navbar .nav-items {
-    display: none;
   }
 }
 
-/* Very Small Devices */
 @media (max-width: 570px) {
   .teacher-content {
-    display: grid;
     grid-template-columns: 1fr;
     gap: 10px;
     margin-top: 60px;
-    margin-left: 20px;
-    width: calc(100vw - 60px);
-    position: absolute;
+    margin-left: 50px;
+    width: calc(100vw - 100px);
+    position: relative;
     margin-bottom: 20px;
   }
 }

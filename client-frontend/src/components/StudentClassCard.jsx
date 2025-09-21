@@ -4,27 +4,16 @@ import { FiMoreVertical, FiUsers, FiBook } from "react-icons/fi";
 import { toast } from "react-toastify"; 
 import "react-toastify/dist/ReactToastify.css";
 
-
 import "../styles/StudentClassCard.css";
+import { useBackgrounds } from "../context/BackgroundContext";
 
-export default function ClassCard({ classData, onLeave }) {
+export default function StudentClassCard({ classData, onLeave }) {
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef(null);
   const navigate = useNavigate();
 
-  const bgImages = [
-    "https://www.gstatic.com/classroom/themes/img_code.jpg",
-    "https://www.gstatic.com/classroom/themes/img_mealfamily.jpg",
-    "https://www.gstatic.com/classroom/themes/img_breakfast.jpg",
-    "https://www.gstatic.com/classroom/themes/img_graduation.jpg",
-    "https://www.gstatic.com/classroom/themes/img_backtoschool.jpg",
-  ];
-
-  const getImageIndex = (id) =>
-    id.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0) %
-    bgImages.length;
-
-  const backgroundImage = bgImages[getImageIndex(classData._id)];
+  const { getBackground } = useBackgrounds();
+  const background = getBackground(classData._id);
 
   const handleViewClass = () => {
     navigate(`/student/class/${classData._id}`, { state: { classData } });
@@ -34,30 +23,12 @@ export default function ClassCard({ classData, onLeave }) {
     if (window.confirm("Are you sure you want to leave this class?")) {
       try {
         onLeave(id);
-        toast.success("You left the class successfully!", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
+        toast.success("You left the class successfully!", { autoClose: 3000 });
       } catch (error) {
-        console.error("Error leaving class:", error);
-        toast.error("Failed to leave class. Try again!", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
+        toast.error("Failed to leave class. Try again!", { autoClose: 3000 });
       }
     } else {
-      toast.info("Leave canceled", {
-        position: "top-right",
-        autoClose: 2000,
-      });
+      toast.info("Leave canceled", { autoClose: 2000 });
     }
     setShowMenu(false);
   };
@@ -68,20 +39,21 @@ export default function ClassCard({ classData, onLeave }) {
         setShowMenu(false);
       }
     };
-
     if (showMenu) {
       document.addEventListener("mousedown", handleClickOutside);
     }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showMenu]);
 
   return (
     <div className="class-card-container">
       <div
         className="class-card-header"
-        style={{ backgroundImage: `url(${backgroundImage})` }}
+        style={{
+          backgroundImage: `url(${background})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
         <h3 className="class-card-title">{classData.subject}</h3>
         <p className="class-card-subtitle">{classData.program}</p>

@@ -1,31 +1,35 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-  FaHome,
-  FaPlus,
-  FaCog,
-  FaSignOutAlt,
-  FaMoon,
-  FaSun,
-} from "react-icons/fa";
+import { FaHome, FaPlus, FaCog, FaSignOutAlt } from "react-icons/fa";
+import { IoPeopleSharp } from "react-icons/io5";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+
 import "../styles/Sidebar.css";
-import { useTheme } from "../context/ThemeContext";
-import { toast } from "react-toastify"; 
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
 
-
-export default function Sidebar({ onCreateClick, isOpen, subjects = [] }) {
+export default function Sidebar({
+  onCreateClick,
+  isOpen,
+  subjects = [],
+  onSettingClick,
+  enrollData,
+}) {
   const location = useLocation();
   const navigate = useNavigate();
-  const { theme, setTheme } = useTheme();
-  const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
+  const [showSubjects, setShowSubjects] = useState(true); 
+  
+  //  Role from localStorage
+  const user = JSON.parse(localStorage.getItem("user"));
+  const role = user?.role; 
 
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     navigate("/");
-    toast.success("Logged out successfully" ,{ autoClose: 4000 }); 
+    toast.success("Logged out successfully", { autoClose: 4000 });
   };
 
-  // Path check
   const isDashboard = location.pathname.startsWith("/dashboard/teacher");
   const isViewClass = /^\/view-class\/[a-zA-Z0-9]+$/.test(location.pathname);
   const isStudentDashboard = location.pathname.startsWith("/dashboard/student");
@@ -35,6 +39,11 @@ export default function Sidebar({ onCreateClick, isOpen, subjects = [] }) {
     if (isViewClass) return "Announcement";
     if (isStudentDashboard) return "Join Class";
     return "Create";
+  };
+  const getClassTitle = () => {
+    if (role === "teacher") return "Teaching";
+    if (role === "student") return "Enrollment";
+    return "";
   };
 
   return (
@@ -66,38 +75,58 @@ export default function Sidebar({ onCreateClick, isOpen, subjects = [] }) {
           </li>
         )}
 
-        <li className="sidebar-li" onClick={toggleTheme} title="Toggle Theme">
-          {theme === "light" ? <FaMoon size={25} /> : <FaSun size={25} />}
-          {isOpen && <span>Theme</span>}
-        </li>
-
-        <Link className="sidebar-li" to="#" title="Settings">
-          <FaCog size={25} />
-          {isOpen && <span>Settings</span>}
-        </Link>
-
         <li className="sidebar-li" onClick={handleLogout} title="Logout">
           <FaSignOutAlt size={25} />
           {isOpen && <span>Logout</span>}
         </li>
-      </ul>
 
-      {/* Subjects List */}
-      {isOpen && subjects?.length > 0 && (
-        <div className="sidebar-subjects">
-          <h4 className="sidebar-subjects-title">Teaching</h4>
-          <ul className="subjects-list">
-            {subjects.map((subj) => (
-              <li key={subj._id} className="subject-item">
-                <div className="subject-avatar">
-                  {subj.subject?.charAt(0).toUpperCase()}
-                </div>
-                <span>{subj.subject}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+        {/* Teaching/Enrollment Section */}
+        <li
+          className="sidebar-li"
+          title={getClassTitle()}
+          onClick={() => setShowSubjects(!showSubjects)}
+        >
+          <IoPeopleSharp size={25} />
+          {isOpen && (
+            <span className="teaching-title">
+              {getClassTitle()}
+              {showSubjects ? (
+                <FaChevronUp size={18} className="chevron-icon" />
+              ) : (
+                <FaChevronDown size={18} className="chevron-icon" />
+              )}
+            </span>
+          )}
+        </li>
+
+        {/*  Collapsible Subjects */}
+        {isOpen && showSubjects && subjects?.length > 0 && (
+          <div className="sidebar-subjects">
+            <ul className="subjects-list">
+              {subjects.map((subj) => (
+                <li key={subj._id}>
+                  <Link
+                    to={`/view-class/${subj._id}`}
+                    className="subject-item"
+                  >
+                    <div className="subject-avatar">
+                      {subj.subject?.charAt(0).toUpperCase()}
+                    </div>
+                    <span>{subj.subject}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <li onClick={onSettingClick} title="Settings">
+          <Link to="/setting" className=" sidebar-li">
+            <FaCog size={25} />
+            {isOpen && <span>Settings</span>}
+          </Link>
+        </li>
+      </ul>
     </aside>
   );
 }
