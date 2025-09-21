@@ -113,14 +113,25 @@ export default function TeacherDashboard() {
   return (
     <div className="teacher-dashboard">
       <Navbar onCreateClick={openCreateModal} onSidebarToggle={toggleSidebar} />
-      <Sidebar onCreateClick={openCreateModal} isOpen={isSidebarOpen} subjects={classes} />
+      <div className="teacher-container">
+        <div className="sidebar-container">
+      <Sidebar
+        onCreateClick={openCreateModal}
+        isOpen={isSidebarOpen}
+        subjects={classes}
+        classData={classes}
+      />
+      </div>
 
-      <main className="teacher-content" onClick={handleCloseMenu}>
+      <div className="teacher-content" onClick={handleCloseMenu}>
         {classes.length === 0 ? (
           <div className="no-classes">
             <h3>No Classes Created Yet</h3>
             <p>Use the + button to create your first class</p>
-            <button className="create-first-class-btn" onClick={openCreateModal}>
+            <button
+              className="create-first-class-btn"
+              onClick={openCreateModal}
+            >
               Create Your First Class
             </button>
           </div>
@@ -136,8 +147,7 @@ export default function TeacherDashboard() {
             />
           ))
         )}
-      </main>
-
+      </div>
       {showModal && (
         <CreateClassModal
           onClose={() => setShowModal(false)}
@@ -146,8 +156,7 @@ export default function TeacherDashboard() {
           isEdit={isEditMode}
         />
       )}
-
-    
+      </div>
     </div>
   );
 }

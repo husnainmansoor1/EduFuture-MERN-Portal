@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function AnnouncementModal({ onClose, onSubmit, classID, editData = null }) {
-  // If editing, prefill values
   const [text, setText] = useState(editData ? editData.text : "");
   const [file, setFile] = useState(null); 
   const [linkUrl, setLinkUrl] = useState(editData ? editData.linkUrl : "");
@@ -14,7 +13,7 @@ export default function AnnouncementModal({ onClose, onSubmit, classID, editData
     if (editData) {
       setText(editData.text || "");
       setLinkUrl(editData.linkUrl || "");
-      setFile(null); // optional: you can keep previous file if needed
+      setFile(null); 
     }
   }, [editData]);
 

@@ -33,6 +33,8 @@ body.light-theme {
   --input-bg-2: #f9fafb;
   --avator-bg: #080808;
   --avator-color: #ffffff;
+  --primary-btn: #601a8e;
+  --primary-btn-hover: #b95ad1;
 }
 
 /* Dark Theme */
@@ -70,6 +72,8 @@ body.dark-theme {
   --link-color: #66b2ff;
   --shadow-color: rgba(246, 246, 246, 0.071);
   --cross-bar-color: #a3a0a0;
+  --primary-btn: #b95ad1;
+  --primary-btn-hover: #601a8e;
 }
 
 /* Apply theme variables globally */

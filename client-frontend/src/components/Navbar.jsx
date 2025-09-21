@@ -2,7 +2,7 @@ import { FaSignOutAlt, FaMoon, FaSun, FaPlus, FaBars } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import "../styles/Navbar.css";
-import { toast } from "react-toastify"; 
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Navbar({ onCreateClick, onSidebarToggle }) {
@@ -14,7 +14,8 @@ export default function Navbar({ onCreateClick, onSidebarToggle }) {
   const token = localStorage.getItem("token");
 
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     navigate("/");
     toast.success("Logged out successfully", { duration: 2000 });
   };
@@ -23,10 +24,12 @@ export default function Navbar({ onCreateClick, onSidebarToggle }) {
   const isViewClass = /^\/view-class\/[a-zA-Z0-9]+$/.test(location.pathname);
   const isStudentDashboard = location.pathname.startsWith("/dashboard/student");
 
-  // Theme toggle
+  // ✅ Check if current page is Login or Register
+  const isAuthPage =
+    location.pathname === "/login" || location.pathname === "/register";
+
   const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
-  // Dynamic create button title
   const getCreateTitle = () => {
     if (isDashboard) return "Create Class";
     if (isViewClass) return "Announcement";
@@ -36,7 +39,6 @@ export default function Navbar({ onCreateClick, onSidebarToggle }) {
 
   return (
     <nav className="navbar">
-      {/* Left Section: Sidebar toggle + Logo */}
       <div className="navbar-left">
         {token && onSidebarToggle && (
           <button className="navbar-icon-btn" onClick={onSidebarToggle}>
@@ -105,13 +107,16 @@ export default function Navbar({ onCreateClick, onSidebarToggle }) {
           </button>
         )}
 
-        <button
-          className="navbar-icon-btn"
-          onClick={toggleTheme}
-          title="Toggle Theme"
-        >
-          {theme === "light" ? <FaMoon /> : <FaSun />}
-        </button>
+        {/* ✅ Theme toggle only on login/register */}
+        {isAuthPage && (
+          <button
+            className="navbar-icon-btn"
+            onClick={toggleTheme}
+            title="Toggle Theme"
+          >
+            {theme === "light" ? <FaMoon /> : <FaSun />}
+          </button>
+        )}
 
         {token && (
           <div

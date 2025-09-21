@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/ClassCard.css";
 import { ConfirmDialog } from "./ConfirmDialog";
-
+import { useBackgrounds } from "../context/BackgroundContext";
 
 export default function ClassCard({
   classData,
@@ -16,23 +16,10 @@ export default function ClassCard({
 }) {
   const navigate = useNavigate();
   const menuRef = useRef(null);
-
   const [showConfirm, setShowConfirm] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
-
-  const bgImages = [
-    "https://www.gstatic.com/classroom/themes/img_code.jpg",
-    "https://www.gstatic.com/classroom/themes/img_mealfamily.jpg",
-    "https://www.gstatic.com/classroom/themes/img_breakfast.jpg",
-    "https://www.gstatic.com/classroom/themes/img_graduation.jpg",
-    "https://www.gstatic.com/classroom/themes/img_backtoschool.jpg",
-  ];
-
-  const getImageIndex = (id) =>
-    id.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0) %
-    bgImages.length;
-
-  const backgroundImage = bgImages[getImageIndex(classData._id)];
+  const { getBackground } = useBackgrounds();
+  const background = getBackground(classData._id);
 
   const handleViewClass = (e) => {
     e.stopPropagation();
@@ -53,8 +40,8 @@ export default function ClassCard({
     try {
       onDelete(deleteId);
       toast.success("Class deleted successfully!", { autoClose: 3000 });
-    } catch (error) {
-      toast.error("Failed to delete class. Please try again.", { autoClose: 3000 });
+    } catch {
+      toast.error("Failed to delete class.", { autoClose: 3000 });
     } finally {
       setShowConfirm(false);
     }
@@ -69,7 +56,7 @@ export default function ClassCard({
     try {
       onEdit(classData);
       toast.success("Edit mode opened!", { autoClose: 2000 });
-    } catch (error) {
+    } catch {
       toast.error("Failed to open edit mode.", { autoClose: 2000 });
     }
   };
@@ -81,16 +68,18 @@ export default function ClassCard({
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showMenu, onToggleMenu]);
 
   return (
     <div className="class-card">
       <div
         className="card-wrap"
-        style={{ backgroundImage: `url(${backgroundImage})` }}
+        style={{
+          backgroundImage: `url(${background})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
         <h3 className="card-title">
           {classData.subject}
@@ -111,7 +100,6 @@ export default function ClassCard({
         <button className="card-button" onClick={handleViewClass}>
           View Class
         </button>
-
         <div className="menu-wrapper" ref={menuRef}>
           <FiMoreVertical onClick={handleMenuClick} className="menu-icon" />
           {showMenu && (
@@ -128,7 +116,6 @@ export default function ClassCard({
         onConfirm={confirmDelete}
         onCancel={cancelDelete}
       />
-
     </div>
   );
 }
