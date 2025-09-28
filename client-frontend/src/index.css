@@ -35,6 +35,8 @@ body.light-theme {
   --avator-color: #ffffff;
   --primary-btn: #601a8e;
   --primary-btn-hover: #b95ad1;
+  --scroll-bar-bg: #444345;
+  --scroll-bar-track: rgb(227, 227, 227);
 }
 
 /* Dark Theme */
@@ -74,6 +76,8 @@ body.dark-theme {
   --cross-bar-color: #a3a0a0;
   --primary-btn: #b95ad1;
   --primary-btn-hover: #601a8e;
+  --scroll-bar-bg: rgb(227, 227, 227);
+  --scroll-bar-track: #444345;
 }
 
 /* Apply theme variables globally */

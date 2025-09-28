@@ -1,8 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import { toast } from "react-toastify";   
-import "react-toastify/dist/ReactToastify.css"; 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// React Icons
+import { FaUser, FaEnvelope, FaLock, FaUserGraduate, FaChalkboardTeacher } from "react-icons/fa";
+import { MdOutlineEmojiEvents } from "react-icons/md"; // 🎯 alternative
+import { IoSchoolSharp } from "react-icons/io5"; // 🎓 alternative
+
 import Navbar from "../components/Navbar";
 import "../styles/Register.css";
 
@@ -56,53 +62,82 @@ export default function Register() {
   };
 
   return (
-    <>
-      <Navbar />
-      <div className="register-container">
-        <h2 className="register-title">SignUp for HM Learning</h2>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Full Name"
-            value={form.name}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={form.password}
-            onChange={handleChange}
-            required
-          />
-          <select
-            name="role"
-            value={form.role}
-            onChange={handleChange}
-            required
-          >
-            <option value="" disabled>
-              -- Select Your Role --
-            </option>
-            <option value="student">Student</option>
-            <option value="teacher">Teacher</option>
-          </select>
+    <div className="register-page">
+      {/* <Navbar /> */}
+      <div className="register-wrapper">
+        <div className="register-container">
+          <div className="register-header">
+            <div className="register-icon">
+              <IoSchoolSharp size={40} />
+            </div>
+            <h2 className="register-title">Create Your Account</h2>
+          </div>
 
-          <button type="submit">Sign Up</button>
-          <Link to="/login">Already have an account? Login</Link>
-        </form>
+          <form onSubmit={handleSubmit} className="register-form">
+            <div className="input-group">
+              <div className="input-icon"><FaUser /></div>
+              <input
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                value={form.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <div className="input-icon"><FaEnvelope /></div>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <div className="input-icon"><FaLock /></div>
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={form.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <div className="input-icon"><MdOutlineEmojiEvents /></div>
+              <select
+                name="role"
+                value={form.role}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled>
+                  Select Your Role
+                </option>
+                <option value="student">Student <FaUserGraduate /></option>
+                <option value="teacher">Teacher <FaChalkboardTeacher /></option>
+              </select>
+            </div>
+
+            <button type="submit" className="register-btn">
+              <span>Create Account</span>
+              <div className="btn-arrow">→</div>
+            </button>
+
+            <div className="register-footer">
+              <p>Already have an account?</p>
+              <Link to="/login" className="login-link">Sign In</Link>
+            </div>
+          </form>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
-

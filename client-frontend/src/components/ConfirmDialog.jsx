@@ -8,10 +8,10 @@ export function ConfirmDialog({ show, onConfirm, onCancel }) {
         <p>This action cannot be undone.</p>
         <div className="confirm-actions">
           <button className="confirm-btn delete" onClick={onConfirm}>
-            Yes, Delete
+            <span> Delete</span>
           </button>
           <button className="confirm-btn cancel" onClick={onCancel}>
-            Cancel
+           <span> Cancel</span>
           </button>
         </div>
       </div>
