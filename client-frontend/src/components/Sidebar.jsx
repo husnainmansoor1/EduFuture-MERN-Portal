@@ -6,22 +6,48 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import "../styles/Sidebar.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-export default function Sidebar({
-  onCreateClick,
-  isOpen,
-  subjects = [],
-  onSettingClick,
-  enrollData,
-}) {
+export default function Sidebar({ onCreateClick, isOpen, onSettingClick }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const [showSubjects, setShowSubjects] = useState(true); 
-  
-  //  Role from localStorage
+  const [showSubjects, setShowSubjects] = useState(true);
+  const [subjects, setSubjects] = useState([]);
+  const [enrollData, setEnrollData] = useState([]);
+
   const user = JSON.parse(localStorage.getItem("user"));
-  const role = user?.role; 
+  const role = user?.role;
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (role === "teacher") {
+          const res = await axios.get("http://localhost:5000/api/classes/my", {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setSubjects(
+            Array.isArray(res.data) ? res.data.filter((c) => c && c._id) : []
+          );
+        } else if (role === "student") {
+          const res = await axios.get(
+            "http://localhost:5000/api/students/enrolled",
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+          setEnrollData(
+            Array.isArray(res.data) ? res.data.filter((c) => c && c._id) : []
+          );
+        }
+      } catch (error) {
+        console.error("Sidebar fetch error:", error);
+      }
+    };
+
+    fetchData();
+  }, [role, token, location.pathname]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -40,11 +66,14 @@ export default function Sidebar({
     if (isStudentDashboard) return "Join Class";
     return "Create";
   };
+
   const getClassTitle = () => {
     if (role === "teacher") return "Teaching";
     if (role === "student") return "Enrollment";
     return "";
   };
+
+  const classList = role === "teacher" ? subjects : enrollData;
 
   return (
     <aside className={`sidebar ${isOpen ? "expanded" : "collapsed"}`}>
@@ -61,24 +90,9 @@ export default function Sidebar({
             title={getCreateTitle()}
           >
             <FaPlus size={25} />
-            {isOpen && (
-              <span>
-                {isDashboard
-                  ? "Create Class"
-                  : isViewClass
-                  ? "Announcement"
-                  : isStudentDashboard
-                  ? "Join Class"
-                  : "Create"}
-              </span>
-            )}
+            {isOpen && <span>{getCreateTitle()}</span>}
           </li>
         )}
-
-        <li className="sidebar-li" onClick={handleLogout} title="Logout">
-          <FaSignOutAlt size={25} />
-          {isOpen && <span>Logout</span>}
-        </li>
 
         {/* Teaching/Enrollment Section */}
         <li
@@ -99,26 +113,41 @@ export default function Sidebar({
           )}
         </li>
 
-        {/*  Collapsible Subjects */}
-        {isOpen && showSubjects && subjects?.length > 0 && (
+        {/*  Collapsible Subjects/Enrollment */}
+        {isOpen && showSubjects && (
           <div className="sidebar-subjects">
-            <ul className="subjects-list">
-              {subjects.map((subj) => (
-                <li key={subj._id}>
-                  <Link
-                    to={`/view-class/${subj._id}`}
-                    className="subject-item"
-                  >
-                    <div className="subject-avatar">
-                      {subj.subject?.charAt(0).toUpperCase()}
-                    </div>
-                    <span>{subj.subject}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            {classList?.length > 0 ? (
+              <ul className="subjects-list">
+                {classList
+                  ?.filter((cls) => cls && cls._id)
+                  .map((cls) => (
+                    <li key={cls._id}>
+                      <Link
+                        to={
+                          role === "teacher"
+                            ? `/view-class/${cls._id}`
+                            : `/student/class/${cls._id}`
+                        }
+                        className="subject-item"
+                      >
+                        <div className="subject-avatar">
+                          {cls.subject?.charAt(0).toUpperCase()}
+                        </div>
+                        <span>{cls.subject}</span>
+                      </Link>
+                    </li>
+                  ))}
+              </ul>
+            ) : (
+              <p className="no-subjects">No {getClassTitle()} Found</p>
+            )}
           </div>
         )}
+
+        <li className="sidebar-li" onClick={handleLogout} title="Logout">
+          <FaSignOutAlt size={25} />
+          {isOpen && <span>Logout</span>}
+        </li>
 
         <li onClick={onSettingClick} title="Settings">
           <Link to="/setting" className=" sidebar-li">

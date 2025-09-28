@@ -46,28 +46,23 @@ exports.joinClass = async (req, res) => {
     res.status(500).json({ message: "Failed to join class" });
   }
 };
-
-// Get all enrolled classes for a student
-// Get all enrolled classes for a student
 exports.getEnrolledClasses = async (req, res) => {
   try {
     const studentId = req.user._id;
 
     const enrollments = await Enrollment.find({ student: studentId })
       .populate({
-        path: "student",   // student ka detail bhi include
-        select: "name email role"
-      })
-      .populate({
         path: "class",
         populate: {
           path: "teacher",
-          select: "name email role"
-        }
+          select: "name email",
+        },
       })
       .sort({ enrolledAt: -1 });
 
-    res.status(200).json(enrollments);
+    const classes = enrollments.map((enrollment) => enrollment.class);
+
+    res.status(200).json(classes);
   } catch (error) {
     console.error("Error fetching enrolled classes:", error);
     res.status(500).json({ message: "Failed to fetch enrolled classes" });

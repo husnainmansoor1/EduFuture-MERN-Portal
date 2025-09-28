@@ -8,8 +8,6 @@
   margin-left: 250px;
 }
 
-
-
 .setting-content {
   background: var(--modal-bg);
   padding: 30px;
@@ -57,14 +55,42 @@
 }
 
 /* ================= RESPONSIVE ================= */
-@media (max-width: 768px) {
+
+/* Tablet Landscape (1024px - 769px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .setting-page {
+    margin-left: 200px;
+  }
+
   .setting-content {
-    padding: 20px;
+    width: 450px;
+    padding: 25px;
   }
 
   .setting-box {
+    max-width: 450px;
+    padding: 25px;
+  }
+}
+
+/* Tablet Portrait / Small Devices (768px) */
+@media (max-width: 768px) {
+  .setting-page {
+    margin-left: 0;
+    align-items: center;
     padding: 20px;
+  }
+
+  .setting-content {
+    width: 100%;
+    padding: 20px 50px;
+    margin-top: 80px;
+  }
+
+  .setting-box {
+    width: 100%;
     max-width: 90%;
+    padding: 20px;
   }
 
   .setting-box h2 {
@@ -76,12 +102,18 @@
   }
 }
 
-@media (max-width: 480px) {
+/* Mobile Devices (570px and below) */
+@media (max-width: 570px) {
+  .setting-page {
+    margin-left: 0;
+    padding: 10px;
+  }
+
   .setting-content {
-    padding: 15px;
-    margin-right: 231px;
-    width: 300px;
-    position: relative;
+    width: 100%;
+    max-width: 320px;
+    padding: 15px 20px;
+    margin-top: 80px;
   }
 
   .setting-box {
@@ -96,7 +128,5 @@
     align-items: flex-start;
     gap: 10px;
     font-size: 0.8rem;
-  }
-  .setting-content {
   }
 }

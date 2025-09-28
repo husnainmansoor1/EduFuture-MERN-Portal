@@ -3,8 +3,12 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";   
 import "react-toastify/dist/ReactToastify.css"; 
+
+// React Icons
+import { FaEnvelope, FaLock } from "react-icons/fa";
+import { FaUnlockKeyhole } from "react-icons/fa6";
+
 import "../styles/Login.css";
-import Navbar from "../components/Navbar";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -25,14 +29,7 @@ export default function Login() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      toast.success("Login successful", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
+      toast.success("Login successful", { autoClose: 2000 });
 
       setTimeout(() => {
         if (res.data.user.role === "teacher") {
@@ -44,46 +41,55 @@ export default function Login() {
     } catch (err) {
       const msg = err.response?.data?.message || "Login failed";
       setError(msg);
-
-      toast.error(msg, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
+      toast.error(msg, { autoClose: 2000 });
     }
   };
 
   return (
-    <>
-      <Navbar />
-      <div className="login-container">
-        <h2>Login to HM Learning</h2>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={handleChange}
-            required
-            autoComplete="username"
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={form.password}
-            onChange={handleChange}
-            required
-            autoComplete="current-password"
-          />
-          <button type="submit">Login</button>
-          <Link to="/register">Sign Up</Link>
-        </form>
+    <div className="login-page">
+      <div className="login-wrapper">
+        <div className="login-container">
+          <div className="login-header">
+            <div className="login-icon">
+              <FaUnlockKeyhole size={35} />
+            </div>
+            <h2 className="login-title">Sign-In Your Account </h2>
+          </div>
+
+          <form onSubmit={handleSubmit} className="login-form">
+            <div className="input-group">
+              <div className="input-icon"><FaEnvelope /></div>
+              <input
+                type="email"
+                name="email"
+                className="login-input"
+                placeholder="Email Address"
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="input-group">
+              <div className="input-icon"><FaLock /></div>
+              <input
+                type="password"
+                name="password"
+                className="login-input"
+                placeholder="Password"
+                value={form.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <button type="submit" className="login-btn">Login</button>
+            <div className="login-footer">
+              Don’t have an account?{" "}
+              <Link to="/register" className="signup-link">Sign Up</Link>
+            </div>
+          </form>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
