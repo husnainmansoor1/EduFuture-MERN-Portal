@@ -122,7 +122,8 @@ export default function TeacherDashboard() {
         classData={classes}
       />
       </div>
-
+      
+      
       <div className="teacher-content" onClick={handleCloseMenu}>
         {classes.length === 0 ? (
           <div className="no-classes">

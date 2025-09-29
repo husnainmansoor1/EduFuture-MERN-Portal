@@ -127,3 +127,24 @@ exports.getStudentClassDetails = async (req, res) => {
     res.status(500).json({ message: "Failed to fetch class details" });
   }
 };
+// Get all students of a class
+exports.getClassStudents = async (req, res) => {
+  try {
+    const { classId } = req.params;
+
+    const enrollments = await Enrollment.find({ class: classId })
+      .populate("student", "name email"); 
+
+    if (!enrollments || enrollments.length === 0) {
+      return res.status(404).json({ message: "No students found for this class" });
+    }
+
+    const students = enrollments.map((enr) => enr.student);
+
+    res.status(200).json(students);
+  } catch (error) {
+    console.error("Error fetching students:", error);
+    res.status(500).json({ message: "Failed to fetch students" });
+  }
+};
+

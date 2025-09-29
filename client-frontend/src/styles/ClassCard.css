@@ -185,12 +185,6 @@
   border-bottom: none;
 }
 
-/* Responsive Grid */
-.teacher-content {
-  display: grid;
-  gap: 20px;
-}
-
 @media (max-width: 768px) {
   .teacher-content {
     grid-template-columns: 1fr;

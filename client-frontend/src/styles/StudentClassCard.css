@@ -34,9 +34,8 @@
 
 .class-card-subtitle {
   font-size: 14px;
-  margin-top: -20px;
   opacity: 0.9;
-  margin-left: 8px;
+  margin-left: 6px;
 }
 
 .class-card-menu {
@@ -50,7 +49,7 @@
   cursor: pointer;
   color: var(--text-color);
   transition: color 0.2s;
-  margin-top: 215px;
+  margin-top: 190px;
 }
 
 .class-card-menu-icon:hover {
