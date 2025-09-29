@@ -1,4 +1,3 @@
-
 @import url("https://fonts.googleapis.com/css2?family=Manufacturing+Consent&display=swap");
 
 .navbar {
@@ -32,8 +31,8 @@
 .navbar-actions {
   display: flex;
   align-items: center;
-  gap: 20px;
-  margin-right: 50px;
+  gap: 10px;
+  margin-right: 10px;
 }
 
 .navbar-icon-btn {
@@ -45,6 +44,112 @@
   color: var(--text-color);
 }
 
+/* Profile Dropdown Container */
+.profile-dropdown {
+  position: absolute;
+  color: var(--text-color);
+  right: 0;
+  top: 50px;
+  background: var(--bg-color);
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+  width: 260px;
+  padding: 15px;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Top Email */
+.profile-top-email {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  text-align: center;
+  margin-bottom: 12px;
+  word-break: break-all;
+}
+
+/* Middle Section */
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.profile-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 8px;
+}
+
+/* Fallback Icon styling */
+.profile-avatar-fallback {
+  font-size: 70px;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.profile-username {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+/* Bottom Card */
+.profile-card {
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-info-icon {
+  font-size: 1.5rem;
+  color: #2c88d9;
+}
+
+.profile-card-name {
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: var(--text-color);
+}
+
+.profile-card-email {
+  font-size: 0.85rem;
+  color: var(--text-color);
+  word-break: break-all;
+}
+
+/* Logout Button */
+.profile-logout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: #d93025;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.profile-logout:hover {
+  background: #fbe9e7;
+}
+
+.logout-icon {
+  font-size: 1.2rem;
+}
 
 .navbar-button-logout {
   background: none;
@@ -71,9 +176,8 @@
   }
 
   .navbar-actions {
-    margin-right: 20px;
+    margin-right: 10px;
     gap: 10px;
-  
   }
 }
 @media (max-width: 480px) {
@@ -88,14 +192,13 @@
   .navbar-actions {
     margin-right: 30px;
     gap: 6px;
-  
   }
   .navbar-icon-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.3rem;
-  padding: 3px;
-  color: var(--text-color);
-}
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.3rem;
+    padding: 3px;
+    color: var(--text-color);
+  }
 }

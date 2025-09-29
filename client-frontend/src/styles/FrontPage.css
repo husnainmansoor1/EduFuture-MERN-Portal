@@ -54,6 +54,9 @@
 }
 
 .hero-badge span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: white;
   font-size: 0.9rem;
   font-weight: 500;
@@ -175,6 +178,10 @@
   padding: 1.5rem;
   color: white;
   animation: float 6s ease-in-out infinite;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  text-align: center;
 }
 
 .card-1 {

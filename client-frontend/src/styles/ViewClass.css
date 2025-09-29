@@ -7,24 +7,44 @@
   color: var(--text-color);
 }
 
+.stream-container {
+  display: flex;
+  margin: 30px 0 0 230px;
+  flex-direction: column;
+  width: 100%;
+}
+
+.student-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #4a90e2;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
 .view-class-main {
   display: flex;
   margin-top: 60px;
   width: 100%;
   flex-grow: 1;
 }
+
 .view-main-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 100px;
 }
 
 .view-class-content {
-  width: 75%;
+  width: 90%;
   padding: 20px 40px;
   overflow-y: auto;
-  margin: 0 10px 0 140px;
   transition: all 0.3s ease;
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -110,12 +130,52 @@
   color: var(--text-color);
 }
 
+.tabs-container {
+  display: flex;
+  gap: 20px;
+  position: relative;
+  margin: 0 130px 0 40px;
+  border-bottom: 1px solid #cccccc;
+}
+
+.tabs-container button {
+  background-color: transparent;
+}
+
+.tab {
+  padding: 10px 40px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.tab.active {
+  background: #4285f4;
+  color: white;
+}
+
+.people-tab {
+  margin-top: 20px;
+}
+
+.class-members {
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.class-members h4 {
+  margin-bottom: 10px;
+}
+
 .code-text-two {
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--accent-color);
   cursor: pointer;
 }
+
 .code-text-two:hover {
   color: var(--accent-hover);
 }
@@ -276,23 +336,154 @@
   font-size: 12px;
   color: var(--muted-text);
 }
+.people-tab {
+  padding: 15px;
+}
 
+.student-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.people-tab {
+  margin-top: 20px;
+}
+.people-tab h3 {
+  margin-bottom: 20px;
+  font-size: 30px;
+  color: var(--text-color);
+  margin-left: 25px;
+}
+.people-tab .line {
+  border-bottom: 1px solid #cccccc;
+  width: 87%;
+  margin-left: 25px;
+  margin-bottom: 20px;
+}
+
+.student-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #cccccc;
+  width: 87%;
+  gap: 10px;
+  padding: 20px 12px;
+  margin-left: 26px;
+  transition: background 0.2s ease;
+}
+
+.student-item:hover {
+  background: #cacaca;
+}
+
+
+.student-name {
+  flex: 1;
+  font-weight: 700;
+  color: var(--text-color);
+  font-size: 24px;
+}
+
+.email-icon {
+  color: #9a9a9a;
+  font-size: 28px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  margin-right: 20px;
+}
+
+.email-icon:hover {
+  color: #0073e6;
+}
 /* ================= Responsive ================= */
 @media (max-width: 1024px) {
+  .view-class-main {
+    flex-direction: column;
+    margin-top: 70px;
+  }
+
   .view-class-content {
-    margin-left: 70px;
-    padding: 15px;
+    margin-left: 0;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .tabs-container {
+    margin: 20px 21px;
+  }
+  .stream-container {
+    display: flex;
+    margin: 50px 20px 0 230px;
+    flex-direction: column;
+    width: 70%;
+  }
+
+  .class-info-box2 {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .student-item {
+    padding: 15px 10px;
+    gap: 8px;
+  }
+
+  .student-icon {
+    /* font-size: 30px; */
+  }
+
+  .student-name {
+    font-size: 20px;
+  }
+
+  .email-icon {
+    font-size: 24px;
   }
 }
 
 @media (max-width: 768px) {
   .view-class-main {
     flex-direction: column;
+    margin-top: 70px;
   }
 
   .view-class-content {
     margin-left: 0 !important;
+    width: 100%;
     padding: 15px;
+  }
+
+  .tabs-container {
+    margin: 20px 15px;
+  }
+
+  .stream-container {
+    display: flex;
+    margin: 50px 0 0 230px;
+    flex-direction: column;
+    width: 65%;
+  }
+  .tab {
+    padding: 8px 20px;
+    font-size: 14px;
+  }
+    .student-item {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 12px 8px;
+    gap: 6px;
+  }
+
+  .student-icon {
+    /* font-size: 24px; */
+    padding: 3px;
+  }
+
+  .student-name {
+    font-size: 16px;
+  }
+
+  .email-icon {
+    font-size: 20px;
   }
 
   .sidebar {
@@ -348,5 +539,41 @@
   .posted-content-section h3 {
     margin-bottom: 20px;
     font-size: 18px;
+  }
+   .tabs-container {
+    margin: 20px 15px;
+  }
+
+  .stream-container {
+    display: flex;
+    margin: 50px 0 0 70px;
+    flex-direction: column;
+    width: 85%;
+  }
+  .tab {
+    padding: 8px 20px;
+    font-size: 14px;
+  }
+   .student-item {
+    padding: 10px;
+    gap: 4px;
+  }
+
+  .student-icon {
+ color: #4a90e2;
+  font-size: 30px;
+  border: 1px solid black;
+  border-radius: 50%;
+  padding: 5px;
+  width: 34px;
+  text-align: center;  }
+
+  .student-name {
+    font-size: 14px;
+  }
+
+  .email-icon {
+    font-size: 18px;
+    margin: 0;
   }
 }
