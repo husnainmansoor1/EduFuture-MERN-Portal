@@ -74,48 +74,90 @@ export default function Navbar({ onCreateClick, onSidebarToggle }) {
         <div className="navbar-logo flex items-center cursor-pointer ml-[-20px]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="230"
+            width="200"
             height="50"
-            viewBox="0 0 250 70"
+            viewBox="0 0 300 100"
           >
-            <path
-              d="M35 5 L65 20 L65 50 L35 65 L5 50 L5 20 Z"
-              fill="#2c88d9"
-              stroke="#83b5fb"
-              strokeWidth="2"
+            {/* <!-- Gradient background for unique shine effect --> */}
+            <defs>
+              <linearGradient
+                id="bgGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
+                <stop
+                  offset="0%"
+                  style={{ stopColor: "#6a0dad", stopOpacity: 1 }}
+                />
+                <stop
+                  offset="0%"
+                  style={{ stopColor: "#9b30ff", stopOpacity: 1 }}
+                />
+                <stop
+                  offset="0%"
+                  style={{ stopColor: "#4b0082", stopOpacity: 1 }}
+                />
+              </linearGradient>
+
+              {/* <!-- Subtle shine overlay --> */}
+              <linearGradient id="shine" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="white" stop-opacity="0.3" />
+                <stop offset="50%" stop-color="white" stop-opacity="0" />
+                <stop offset="100%" stop-color="white" stop-opacity="0.3" />
+              </linearGradient>
+            </defs>
+
+            {/* <!-- Square background with gradient --> */}
+            <rect
+              x="0"
+              y="0"
+              width="130"
+              height="100"
+              rx="15"
+              ry="15"
+              fill="url(#bgGradient)"
             />
-            <path d="M20 18 L35 12 L50 18 L35 24 Z" fill="black" />
-            <line
-              x1="35"
-              y1="24"
-              x2="35"
-              y2="30"
-              stroke="black"
-              strokeWidth="2"
+
+            {/* <!-- Shine effect on top of background --> */}
+            <rect
+              x="0"
+              y="0"
+              width="130"
+              height="100"
+              rx="15"
+              ry="15"
+              fill="url(#shine)"
             />
+
+            {/* <!-- BOOK SHAPE inside background --> */}
+            <rect x="50" y="55" width="70" height="10" rx="5" fill="#ff6b4a" />
+            <rect x="50" y="70" width="70" height="10" rx="5" fill="#ffb347" />
+
+            {/* <!-- TEXT EDU inside background --> */}
             <text
-              x="35"
-              y="48"
-              fontFamily="Manufacturing Consent, system-ui"
-              fontSize="18"
-              fontWeight="bold"
-              fill="white"
-              textAnchor="middle"
+              x="10"
+              y="60"
+              font-family="Manufacturing Consent, system-ui"
+              font-size="60"
+              font-weight="600"
+              fill="#ffffff"
             >
-              HM
+              Edu
             </text>
+
+            {/* <!-- TEXT FUTURE outside background --> */}
             <text
-              x="80"
-              y="47"
-              fontFamily="Manufacturing Consent, system-ui"
-              fontSize="40"
-              fontWeight="700"
-              fill="#2c88d9"
-              stroke="#a4c3ef"
+              x="160"
+              y="63"
+              font-family="Inter, sans-serif"
+              font-size="30"
+              font-weight="900"
+              fill="#06b6d4"
             >
-              Learning
+              FUTURE
             </text>
-            <title>HM Learning Portal</title>
           </svg>
         </div>
       </div>

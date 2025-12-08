@@ -95,6 +95,7 @@ export default function Login() {
                     placeholder="Enter your password"
                     value={form.password}
                     onChange={handleChange}
+                    autoComplete="current-password"
                     required
                     className="w-full pl-10 text-gray-500 pr-4 py-3 text-sm border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                   />
