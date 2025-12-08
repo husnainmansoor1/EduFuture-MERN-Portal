@@ -51,18 +51,23 @@ export default function AnnouncementModal({ onClose, onSubmit, classID, editData
   return (
     <div className="annouce-modal-overlay">
       <div className="annouce-modal-box">
-        <button className="annouce-modal-close-icon" onClick={onClose}>
+        <button 
+          className="absolute top-3 right-3.5 bg-transparent border-none text-xl font-bold text-[var(--secondary-text)] cursor-pointer transition-colors duration-200 hover:text-[#e74c3c]" 
+          onClick={onClose}
+        >
           ✕
         </button>
 
-        <div className="annouce-modal-box-container">
-          <h2>{editData ? "Edit Announcement" : "Post Announcement"}</h2>
+        <div className="p-0">
+          <h2 className="text-xl font-semibold mb-4 text-center text-[var(--text-color)]">
+            {editData ? "Edit Announcement" : "Post Announcement"}
+          </h2>
           <form onSubmit={handleSubmit}>
             <textarea
               placeholder="Announce something to your class"
               value={text}
               onChange={(e) => setText(e.target.value)}
-              className="annouce-modal-textarea"
+              className="w-[100%] h-20 p-3 text-sm border border-[var(--modal-border)] rounded-lg resize-none mb-4 bg-[var(--input-bg-2)] transition-colors duration-200 focus:border-[var(--primary-color)] focus:outline-none hover:border-[var(--primary-hover)] hover:text-[var(--muted-text)]"
             />
 
             <label className="annouce-custom-file-upload">
@@ -82,10 +87,13 @@ export default function AnnouncementModal({ onClose, onSubmit, classID, editData
               placeholder="Paste video or URL (optional)"
               value={linkUrl}
               onChange={(e) => setLinkUrl(e.target.value)}
-              className="annouce-modal-input"
+              className="block w-[100%] mb-4 p-3 border border-[var(--modal-border)] rounded-lg text-[var(--text-color)] bg-[var(--input-bg-2)] transition-colors duration-200 focus:border-[var(--primary-color)] focus:outline-none hover:border-[var(--primary-hover)] hover:text-[var(--muted-text)]"
             />
 
-            <button type="submit" className="annouce-modal-button">
+            <button 
+              type="submit" 
+              className="w-full bg-[var(--primary-color)] text-white font-semibold py-3 px-4 border-none rounded-lg cursor-pointer transition-colors duration-250 hover:bg-[var(--primary-hover)]"
+            >
               {editData ? "Update" : "Post"}
             </button>
           </form>

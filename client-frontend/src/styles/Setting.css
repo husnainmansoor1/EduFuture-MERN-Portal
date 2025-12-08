@@ -5,7 +5,7 @@
   align-items: center;
   min-height: 100vh;
   color: var(--text-color);
-  margin-left: 250px;
+  /* margin-left: 250px; */
 }
 
 .setting-content {
@@ -18,7 +18,8 @@
   transition: background 0.3s, color 0.3s;
   border: 1px solid var(--card-border);
   color: var(--text-color);
-  margin-top: 100px;
+  margin-top: 150px;
+  margin-left: 70px;
 }
 
 /* ================= BOX ================= */
@@ -58,13 +59,11 @@
 
 /* Tablet Landscape (1024px - 769px) */
 @media (max-width: 1024px) and (min-width: 769px) {
-  .setting-page {
-    margin-left: 200px;
-  }
-
   .setting-content {
     width: 450px;
     padding: 25px;
+    margin-top: 150px;
+    margin-left: 70px;
   }
 
   .setting-box {
@@ -84,7 +83,8 @@
   .setting-content {
     width: 100%;
     padding: 20px 50px;
-    margin-top: 80px;
+    margin-top: 150px;
+    margin-left: 90px;
   }
 
   .setting-box {
@@ -113,7 +113,8 @@
     width: 100%;
     max-width: 320px;
     padding: 15px 20px;
-    margin-top: 80px;
+    margin-top: 120px;
+    margin-left: 20px;
   }
 
   .setting-box {

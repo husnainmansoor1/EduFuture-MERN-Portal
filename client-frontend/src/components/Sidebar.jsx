@@ -15,6 +15,7 @@ export default function Sidebar({ onCreateClick, isOpen, onSettingClick }) {
   const [showSubjects, setShowSubjects] = useState(true);
   const [subjects, setSubjects] = useState([]);
   const [enrollData, setEnrollData] = useState([]);
+  const [isHovered, setIsHovered] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
   const role = user?.role;
@@ -56,6 +57,18 @@ export default function Sidebar({ onCreateClick, isOpen, onSettingClick }) {
     toast.success("Logged out successfully", { autoClose: 4000 });
   };
 
+  const handleMouseEnter = () => {
+    if (!isOpen) {
+      setIsHovered(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isOpen) {
+      setIsHovered(false);
+    }
+  };
+
   const isDashboard = location.pathname.startsWith("/dashboard/teacher");
   const isViewClass = /^\/view-class\/[a-zA-Z0-9]+$/.test(location.pathname);
   const isStudentDashboard = location.pathname.startsWith("/dashboard/student");
@@ -75,49 +88,73 @@ export default function Sidebar({ onCreateClick, isOpen, onSettingClick }) {
 
   const classList = role === "teacher" ? subjects : enrollData;
 
+  // Determine if sidebar should show expanded content
+  const shouldShowExpanded = isOpen || isHovered;
+
   return (
-    <aside className={`sidebar ${isOpen ? "expanded" : "collapsed"}`}>
-      <ul className="sidebar-ul">
-        <Link className="sidebar-li" to="/dashboard/teacher" title="Home">
+    <aside
+      className={`
+        sidebar
+        ${isOpen ? "expanded" : "collapsed"}
+        ${isHovered ? "hover-expanded" : ""}
+        flex flex-col overflow-y-auto overflow-x-hidden  bg-[var(--bg-color)]
+      `}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-0 w-72 h-72 bg-purple-300 dark:bg-purple-900 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute top-0 right-0 w-72 h-72 bg-cyan-300 dark:bg-cyan-900 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 dark:bg-pink-900 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+      </div>
+
+      <ul className="sidebar-ul flex flex-col gap-2 mt-20 px-0 flex-grow">
+        {/* HOME */}
+        <Link
+          className="sidebar-li flex items-center gap-3 px-3 py-2 hover:bg-gray-300 transition rounded-md"
+          to="/dashboard/teacher"
+          title="Home"
+        >
           <FaHome size={25} />
-          {isOpen && <span>Home</span>}
+          {shouldShowExpanded && <span>Home</span>}
         </Link>
 
+        {/* CREATE / JOIN / ANNOUNCEMENT */}
         {onCreateClick && (
           <li
-            className="sidebar-li"
+            className="sidebar-li flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-gray-300 transition rounded-md"
             onClick={onCreateClick}
             title={getCreateTitle()}
           >
             <FaPlus size={25} />
-            {isOpen && <span>{getCreateTitle()}</span>}
+            {shouldShowExpanded && <span>{getCreateTitle()}</span>}
           </li>
         )}
 
-        {/* Teaching/Enrollment Section */}
+        {/* TEACHING / ENROLLMENT */}
         <li
-          className="sidebar-li"
+          className="sidebar-li flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-gray-300 transition rounded-md"
           title={getClassTitle()}
-          onClick={() => setShowSubjects(!showSubjects)}
+          onClick={() => shouldShowExpanded && setShowSubjects(!showSubjects)}
         >
           <IoPeopleSharp size={25} />
-          {isOpen && (
-            <span className="teaching-title">
+          {shouldShowExpanded && (
+            <span className="flex justify-between w-40">
               {getClassTitle()}
               {showSubjects ? (
-                <FaChevronUp size={18} className="chevron-icon" />
+                <FaChevronUp size={18} />
               ) : (
-                <FaChevronDown size={18} className="chevron-icon" />
+                <FaChevronDown size={18} />
               )}
             </span>
           )}
         </li>
 
-        {/*  Collapsible Subjects/Enrollment */}
-        {isOpen && showSubjects && (
-          <div className="sidebar-subjects">
+        {/* SUBJECT LIST */}
+        {shouldShowExpanded && showSubjects && (
+          <div className="sidebar-subjects mt-4 px-2">
             {classList?.length > 0 ? (
-              <ul className="subjects-list">
+              <ul className="subjects-list flex flex-col gap-2">
                 {classList
                   ?.filter((cls) => cls && cls._id)
                   .map((cls) => (
@@ -128,9 +165,9 @@ export default function Sidebar({ onCreateClick, isOpen, onSettingClick }) {
                             ? `/view-class/${cls._id}`
                             : `/student/class/${cls._id}`
                         }
-                        className="subject-item"
+                        className="subject-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-300 transition"
                       >
-                        <div className="subject-avatar">
+                        <div className="subject-avatar flex items-center justify-center rounded-full font-bold text-sm">
                           {cls.subject?.charAt(0).toUpperCase()}
                         </div>
                         <span>{cls.subject}</span>
@@ -139,20 +176,31 @@ export default function Sidebar({ onCreateClick, isOpen, onSettingClick }) {
                   ))}
               </ul>
             ) : (
-              <p className="no-subjects">No {getClassTitle()} Found</p>
+              <p className="no-subjects text-gray-500 text-sm">
+                No {getClassTitle()} Found
+              </p>
             )}
           </div>
         )}
 
-        <li className="sidebar-li" onClick={handleLogout} title="Logout">
+        {/* LOGOUT */}
+        <li
+          className="sidebar-li flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-gray-300 transition rounded-md"
+          onClick={handleLogout}
+          title="Logout"
+        >
           <FaSignOutAlt size={25} />
-          {isOpen && <span>Logout</span>}
+          {shouldShowExpanded && <span>Logout</span>}
         </li>
 
+        {/* SETTINGS */}
         <li onClick={onSettingClick} title="Settings">
-          <Link to="/setting" className=" sidebar-li">
+          <Link
+            to="/setting"
+            className="sidebar-li flex items-center gap-3 px-3 py-2 hover:bg-gray-300 transition rounded-md"
+          >
             <FaCog size={25} />
-            {isOpen && <span>Settings</span>}
+            {shouldShowExpanded && <span>Settings</span>}
           </Link>
         </li>
       </ul>
