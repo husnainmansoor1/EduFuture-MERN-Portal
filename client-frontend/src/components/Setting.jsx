@@ -19,11 +19,13 @@ export default function Setting() {
       <div className="setting-layout">
         <Sidebar isOpen={isSidebarOpen} />
 
-        <div className="setting-content">
-          <h2>Theme Setting</h2>
+        <div className="setting-content py-7.5 px-7.5 rounded-xl">
+          <h2 className="text-2xl mb-5">Theme Setting</h2>
 
-          <div className="theme-btn">
-            <span>Switch to {theme === "light" ? "Dark" : "Light"} Mode</span>
+          <div className="theme-btn py-2.5 px-3.5 rounded-lg flex justify-between items-center gap-3.5">
+            <span className="text-sm">
+              Switch to {theme === "light" ? "Dark" : "Light"} Mode
+            </span>
             <Switch
               checked={theme === "dark"}
               onChange={toggleTheme}

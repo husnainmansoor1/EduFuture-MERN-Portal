@@ -1,3 +1,4 @@
+/* AnnouncementModal.css */
 .annouce-modal-overlay {
   position: fixed;
   inset: 0;
@@ -20,62 +21,9 @@
   animation: fadeIn 0.25s ease-in-out;
 }
 
-.annouce-modal-box-container h2 {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 18px;
-  text-align: center;
-  color: var(--text-color);
-}
-
-.annouce-modal-box .annouce-modal-textarea {
-  width: 95%;
-  height: 80px;
-  padding: 12px;
-  font-size: 15px;
-  border: 1px solid var(--modal-border);
-  border-radius: 8px;
-  resize: none;
-  margin-bottom: 15px;
-  background: var(--input-bg-2);
-  transition: border 0.2s ease;
-}
-
-.annouce-modal-box .annouce-modal-textarea:focus {
-  border-color: var(--primary-color);
-  outline: none;
-}
-.annouce-modal-textarea:hover {
-  border-color: var(--primary-hover);
-    color: var( --muted-text);
-
-}
-
-.annouce-modal-box .annouce-modal-input {
-  display: block;
-  width: 95%;
-  margin-bottom: 15px;
-  padding: 12px;
-  border: 1px solid var(--modal-border);
-  border-radius: 8px;
-  color: var(--text-color);
-  background: var(--input-bg-2);
-  transition: border 0.2s ease;
-}
-
-.annouce-modal-box .annouce-modal-input:focus {
-  border-color: var(--primary-color);
-  outline: none;
-}
-.annouce-modal-input:hover {
-  border-color: var(--primary-hover);
-    color: var( --muted-text);
-
-}
-
 .annouce-custom-file-upload {
   display: flex;
-  width: 91.7%;
+  width: 100%;
   align-items: center;
   padding: 12px 19px;
   gap: 10px;
@@ -91,7 +39,7 @@
 
 .annouce-custom-file-upload:hover {
   border-color: var(--primary-hover);
-    color: var( --muted-text);
+  color: var(--muted-text);
 }
 
 .annouce-custom-file-upload input[type="file"] {
@@ -103,41 +51,6 @@
   color: var(--muted-text);
   font-style: italic;
   margin-left: 6px;
-}
-
-
-/* Buttons */
-.annouce-modal-box .annouce-modal-button {
-  background: var(--primary-color);
-  width: 100%;
-  color: #fff;
-  font-weight: 600;
-  padding: 12px 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.25s ease;
-}
-
-.annouce-modal-box .annouce-modal-button:hover {
-  background: var(--primary-hover);
-}
-
-.annouce-modal-close-icon {
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  background: transparent;
-  border: none;
-  font-size: 20px;
-  font-weight: bold;
-  color: var(--secondary-text);
-  cursor: pointer;
-  transition: color 0.2s ease-in-out;
-}
-
-.annouce-modal-close-icon:hover {
-  color: #e74c3c;
 }
 
 @keyframes fadeIn {
@@ -159,23 +72,7 @@
     margin-top: -100px;
   }
 
-  .annouce-modal-box-container h2 {
-    font-size: 18px;
-  }
-
-  .annouce-modal-box .annouce-modal-textarea {
-    font-size: 14px;
-    height: 70px;
-  }
-
   .annouce-custom-file-upload {
-    font-size: 13px;
-    padding: 10px;
     width: 95%;
-  }
-
-  .annouce-modal-box .annouce-modal-button {
-    font-size: 14px;
-    padding: 10px;
   }
 }

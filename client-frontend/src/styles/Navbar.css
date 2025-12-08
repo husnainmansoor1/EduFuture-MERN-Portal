@@ -7,10 +7,10 @@
   padding: 20px 20px;
   width: 100vw;
   position: fixed;
-  background-color: var(--navbar-bg);
   color: var(--text-color);
   z-index: 1000;
-  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3);
+  border-bottom: 1px solid #ddd;
+  /* box-shadow: 0 1px 3px rgba(255, 255, 255, 0.3); */
 }
 
 .navbar-left {
@@ -190,7 +190,7 @@
     gap: 6px;
   }
   .navbar-actions {
-    margin-right: 30px;
+    margin-right: -5px;
     gap: 6px;
   }
   .navbar-icon-btn {

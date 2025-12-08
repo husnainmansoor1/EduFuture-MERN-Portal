@@ -5,7 +5,6 @@ import Login from "./pages/Login";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import ViewClass from "./pages/ViewClass";
 import StudentDashBoard from "./pages/StudentDashBoard";
-import StudentViewClass from "./pages/StudentViewClass";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { ThemeProvider } from "./context/ThemeContext";
@@ -57,7 +56,7 @@ export default function App() {
               path="/student/class/:classID"
               element={
                 <ProtectedRoute
-                  element={() => <StudentViewClass />}
+                  element={() => <ViewClass />}
                   role="student"
                 />
               }

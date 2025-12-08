@@ -1,11 +1,11 @@
-
+/* JoinClassModal.css */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,92 +21,6 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.modal-box-container {
-  display: flex;
-  flex-direction: column;
-  margin-left: 15px;
-}
-
-.modal-box h2 {
-  margin-bottom: 10px;
-  text-align: center;
-  color: var(--text-color);
-  font-size: 1.8rem;
-  font-weight: 600;
-}
-
-.join-instruction {
-  text-align: center;
-  color: var(--sub-text);
-  margin-bottom: 25px;
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-.class-code-input {
-  text-align: center;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  border: 2px solid var(--border-color);
-  transition: border-color 0.3s ease;
-}
-
-.class-code-input:focus {
-  border-color: var(--primary-btn);
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
-}
-
-.modal-input {
-  display: block;
-  width: 95%;
-  margin-bottom: 20px;
-  padding: 15px;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  font-size: 16px;
-  color: var(--input-text);
-}
-
-.modal-button {
-  background-color: var(--primary-btn);
-  width: 95%;
-  color: #fff;
-  padding: 15px 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin: 10px 0px;
-  font-size: 16px;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
-}
-
-.modal-button:hover:not(:disabled) {
-  background-color: var(--primary-btn-hover);
-}
-
-.modal-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-.modal-button-close {
-  background-color: var(--secondary-btn);
-  width: 100px;
-  color: #fff;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.modal-button-close:hover {
-  background-color: var(--secondary-btn-hover);
-}
-
 .modal-close-btn {
   position: absolute;
   top: 12px;
@@ -114,7 +28,6 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  font-size: 20px;
   color: var(--cross-bar-color);
   transition: color 0.2s;
 }
@@ -138,52 +51,11 @@
     width: 87%;
     padding: 20px;
   }
-
-  .modal-box h2 {
-    font-size: 1.5rem;
-  }
-
-  .modal-input {
-    font-size: 14px;
-    padding: 12px;
-  }
-
-  .modal-button {
-    font-size: 14px;
-    padding: 12px;
-  }
-
-  .modal-button-close {
-    width: 80px;
-    font-size: 14px;
-    padding: 8px;
-  }
 }
+
 @media (max-width: 480px) {
   .modal-box {
     width: 80%;
     padding: 15px;
-    margin-top: -100px;
-  }
-
-  .modal-box h2 {
-    font-size: 1.3rem;
-  }
-
-  .modal-input {
-    font-size: 13px;
-    padding: 10px;
-  }
-
-  .modal-button {
-    font-size: 13px;
-    padding: 10px;
-  }
-
-  .modal-button-close {
-    width: 70px;
-    font-size: 13px;
-    padding: 6px;
   }
 }
-  
