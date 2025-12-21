@@ -83,11 +83,11 @@
 
 @media (max-width: 1024px) and (min-width: 768px) {
   .content-area {
-    margin-left: 100px;
+    margin-left: 0px;
   }
   
   .hero-section {
-    margin-left: 90px;
+    margin-left:0px;
   }
   
   .stats-grid {
@@ -113,9 +113,18 @@
     width: 100%;
   }
   
+  
   .hero-buttons button {
     width: 100%;
   }
+}
+
+
+@media (max-width:540px) {
+  .main-section{
+  margin-left: 0px;
+  }
+
 }
 
 /* Dark Mode Adjustments */

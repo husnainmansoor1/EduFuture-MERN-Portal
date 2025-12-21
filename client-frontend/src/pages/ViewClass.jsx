@@ -262,67 +262,73 @@ const CombinedViewClass = () => {
             }}
           >
             <div className="absolute inset-0"></div>
-            <div className="relative z-10 max-w-7xl mx-auto">
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
               <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                    <span className="text-[var(--light-text)] font-medium">
+                <div className="flex-1 w-full">
+                  {/* Status Badge */}
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-[var(--light-text)] text-sm md:text-base font-medium">
                       {isStudentView ? "Currently Enrolled" : "Active Class"}
                     </span>
                   </div>
-                  <h1 className="text-4xl lg:text-6xl font-black mb-4 bg-gradient-to-r from-white to-[var(--light-text)] bg-clip-text text-transparent">
+
+                  {/* Subject Title */}
+                  <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-3 bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent leading-tight">
                     {classData?.subject}
                   </h1>
-                  <p className="text-xl text-[var(--light-text)] mb-6">
+
+                  {/* Program Name */}
+                  <p className="text-lg md:text-xl text-white/80 mb-6">
                     {classData?.program}
                   </p>
 
-                  <div className="flex flex-wrap gap-4">
+                  {/* Stats Cards Container */}
+                  <div className="flex flex-wrap gap-3 md:gap-4">
                     {!isStudentView && classData?.code && (
-                      <div className="bg-white/20 backdrop-blur-lg rounded-2xl px-6 py-3 border border-white/30">
-                        <p className="text-sm text-[var(--light-text)] font-medium">
+                      <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl px-4 py-2 md:px-6 md:py-3 border border-white/20 flex-1 min-w-[140px] sm:flex-none">
+                        <p className="text-[10px] md:text-sm text-white/70 font-medium uppercase tracking-wider">
                           Class Code
                         </p>
-                        <div className="flex items-center gap-3">
-                          <code className="text-2xl font-black text-white">
+                        <div className="flex items-center justify-between gap-2 mt-1">
+                          <code className="text-lg md:text-2xl font-black text-white">
                             {classData?.code}
                           </code>
                           <button
                             onClick={() => {
                               navigator.clipboard.writeText(classData?.code);
-                              toast.success(
-                                "Class code copied to clipboard! 📋"
-                              );
+                              toast.success("Class code copied! 📋");
                             }}
-                            className="p-2 bg-white/20 rounded-lg hover:bg-white/30 transition-colors"
+                            className="p-1.5 bg-white/10 rounded-lg hover:bg-white/20 transition-colors"
                           >
-                            <FaShare className="text-white" />
+                            <FaShare className="text-white text-xs md:text-sm" />
                           </button>
                         </div>
                       </div>
                     )}
 
-                    <div className="bg-white/20 backdrop-blur-lg rounded-2xl px-6 py-3 border border-white/30">
-                      <p className="text-sm text-[var(--light-text)] font-medium">
+                    {/* Members Stat */}
+                    <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl px-4 py-2 md:px-6 md:py-3 border border-white/20 flex-1 min-w-[100px] sm:flex-none">
+                      <p className="text-[10px] md:text-sm text-white/70 font-medium uppercase tracking-wider">
                         {isStudentView ? "Classmates" : "Students"}
                       </p>
-                      <div className="flex items-center gap-2">
-                        <IoPeople className="text-xl" />
-                        <span className="text-2xl font-black text-white">
+                      <div className="flex items-center gap-2 mt-1">
+                        <IoPeople className="text-lg md:text-xl text-white/80" />
+                        <span className="text-lg md:text-2xl font-black text-white">
                           {people.length}
                         </span>
                       </div>
                     </div>
 
+                    {/* Materials Stat (Student Only) */}
                     {isStudentView && (
-                      <div className="bg-white/20 backdrop-blur-lg rounded-2xl px-6 py-3 border border-white/30">
-                        <p className="text-sm text-[var(--light-text)] font-medium">
+                      <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl px-4 py-2 md:px-6 md:py-3 border border-white/20 flex-1 min-w-[100px] sm:flex-none">
+                        <p className="text-[10px] md:text-sm text-white/70 font-medium uppercase tracking-wider">
                           Materials
                         </p>
-                        <div className="flex items-center gap-2">
-                          <MdDownload className="text-xl" />
-                          <span className="text-2xl font-black text-white">
+                        <div className="flex items-center gap-2 mt-1">
+                          <MdDownload className="text-lg md:text-xl text-white/80" />
+                          <span className="text-lg md:text-2xl font-black text-white">
                             {
                               allContent.filter(
                                 (item) => item.fileUrl || item.linkUrl
@@ -335,46 +341,53 @@ const CombinedViewClass = () => {
                   </div>
                 </div>
 
-                {isStudentView ? (
-                  <div className="flex items-center gap-4">
-                    <div
-                      className="w-16 h-16 rounded-2xl flex items-center justify-center"
-                      style={{
-                        background: `linear-gradient(to right, ${secondaryAccentColor}, ${secondaryAccentDark})`,
-                      }}
+                {/* Right Side Action / Badge */}
+                <div className="w-full lg:w-auto mt-2 lg:mt-0">
+                  {isStudentView ? (
+                    <div className="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/10 lg:bg-transparent lg:p-0 lg:border-none lg:justify-end">
+                      <div
+                        className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl flex items-center justify-center shrink-0"
+                        style={{
+                          background: `linear-gradient(to right, ${secondaryAccentColor}, ${secondaryAccentDark})`,
+                        }}
+                      >
+                        <FaGraduationCap className="text-white text-xl md:text-2xl" />
+                      </div>
+                      <div className="text-left lg:text-right">
+                        <p className="text-xs md:text-sm text-white/60">
+                          Enrolled as
+                        </p>
+                        <p className="text-lg md:text-xl font-bold text-white leading-none mt-1">
+                          Student
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() =>
+                        setShowModal({ open: true, editData: null })
+                      }
+                      className="w-full lg:w-auto group bg-white text-cyan-600 px-6 py-4 md:px-8 md:py-4 rounded-xl md:rounded-2xl font-bold text-base md:text-lg hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-xl flex items-center justify-center gap-3"
                     >
-                      <FaGraduationCap className="text-white text-2xl" />
-                    </div>
-                    <div className="text-right">
-                      <p className="text-sm text-[var(--light-text)]">
-                        Enrolled as
-                      </p>
-                      <p className="text-xl font-bold text-white">Student</p>
-                    </div>
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => setShowModal({ open: true, editData: null })}
-                    className="group bg-white text-cyan-600 px-8 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-cyan-500/25 flex items-center gap-3"
-                  >
-                    <IoSparkles className="group-hover:rotate-180 transition-transform duration-500" />
-                    New Announcement
-                  </button>
-                )}
+                      <IoSparkles className="group-hover:rotate-180 transition-transform duration-500 text-xl" />
+                      New Announcement
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </div>
 
           {/* Main Content */}
-          <div className="max-w-full p-6 rounded-3xl mt-8 mb-12 shadow-xl border border-slate-200 dark:border-slate-700">
-            {/* Tabs */}
-            <div className="bg-[var(--card-bg)] rounded-3xl p-2 mb-8 shadow-xl border border-[var(--border-color)] inline-flex">
+          <div className="max-w-full p-4 md:p-6 rounded-2xl md:rounded-3xl mt-4 md:mt-8 mb-12 shadow-xl border border-slate-200 dark:border-slate-700">
+            {/* Tabs - Fixed for Mobile */}
+            <div className="bg-[var(--card-bg)] rounded-2xl md:rounded-3xl p-1.5 md:p-2 mb-6 md:mb-8 shadow-xl border border-[var(--border-color)] flex flex-row w-full sm:w-auto sm:inline-flex">
               <button
                 onClick={() => setActiveTab("stream")}
-                className={`flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                className={`flex items-center justify-center flex-1 sm:flex-none gap-2 md:gap-3 px-3 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl font-bold text-sm md:text-lg transition-all duration-300 ${
                   activeTab === "stream"
                     ? "text-white shadow-lg"
-                    : "text-[var(--text-color)] hover:text-[var(--accent-color)]"
+                    : "text-[var(--text-color)]"
                 }`}
                 style={
                   activeTab === "stream"
@@ -384,15 +397,18 @@ const CombinedViewClass = () => {
                     : {}
                 }
               >
-                <MdStream className="text-xl" />
-                {isStudentView ? "Class Stream" : "Stream"}
+                <MdStream className="text-lg md:text-xl" />
+                <span className="whitespace-nowrap">
+                  {isStudentView ? "Stream" : "Stream"}
+                </span>
               </button>
+
               <button
                 onClick={() => setActiveTab("people")}
-                className={`flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                className={`flex items-center justify-center flex-1 sm:flex-none gap-2 md:gap-3 px-3 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl font-bold text-sm md:text-lg transition-all duration-300 ${
                   activeTab === "people"
                     ? "text-white shadow-lg"
-                    : "text-[var(--text-color)] hover:text-[var(--secondary-accent-color)]"
+                    : "text-[var(--text-color)]"
                 }`}
                 style={
                   activeTab === "people"
@@ -402,240 +418,129 @@ const CombinedViewClass = () => {
                     : {}
                 }
               >
-                <MdGroups className="text-xl" />
-                {isStudentView ? "Classmates" : "People"} ({people.length})
+                <MdGroups className="text-lg md:text-xl" />
+                <span className="whitespace-nowrap">({people.length})</span>
               </button>
             </div>
 
             {/* Stream Tab */}
             {activeTab === "stream" && (
-              <div className="space-y-6">
-                {/* Quick Stats */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border-color)] shadow-lg">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-emerald-500 rounded-2xl flex items-center justify-center">
-                        <IoSparkles className="text-white text-xl" />
-                      </div>
-                      <div>
-                        <p className="text-[var(--muted-text)] text-sm">
-                          {isStudentView
-                            ? "Total Announcements"
-                            : "Total Posts"}
-                        </p>
-                        <p className="text-2xl font-black text-[var(--text-color)]">
-                          {allContent.length}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border-color)] shadow-lg">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-2xl flex items-center justify-center">
-                        <VscFileSymlinkDirectory className="text-white text-xl" />
-                      </div>
-                      <div>
-                        <p className="text-[var(--muted-text)] text-sm">
-                          Resources
-                        </p>
-                        <p className="text-2xl font-black text-[var(--text-color)]">
-                          {
-                            allContent.filter(
-                              (item) => item.fileUrl || item.linkUrl
-                            ).length
-                          }
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border-color)] shadow-lg">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-500 rounded-2xl flex items-center justify-center">
-                        <FaRocket className="text-white text-xl" />
-                      </div>
-                      <div>
-                        <p className="text-[var(--muted-text)] text-sm">
-                          Activity
-                        </p>
-                        <p className="text-2xl font-black text-[var(--text-color)]">
-                          {isStudentView ? "Participating" : "High"}
-                        </p>
+              <div className="space-y-4 md:y-6">
+                {/* Quick Stats - Optimized for Mobile Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+                  {[
+                    {
+                      label: isStudentView ? "Posts" : "Total Posts",
+                      val: allContent.length,
+                      icon: <IoSparkles />,
+                      grad: "from-green-400 to-emerald-500",
+                    },
+                    {
+                      label: "Resources",
+                      val: allContent.filter((i) => i.fileUrl || i.linkUrl)
+                        .length,
+                      icon: <VscFileSymlinkDirectory />,
+                      grad: "from-blue-400 to-cyan-500",
+                    },
+                    {
+                      label: "Activity",
+                      val: isStudentView ? "Active" : "High",
+                      icon: <FaRocket />,
+                      grad: "from-purple-400 to-pink-500",
+                    },
+                  ].map((stat, idx) => (
+                    <div
+                      key={idx}
+                      className="bg-[var(--card-bg)] rounded-2xl p-4 md:p-6 border border-[var(--border-color)] shadow-md"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div
+                          className={`w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r ${stat.grad} rounded-xl md:rounded-2xl flex items-center justify-center text-white text-lg md:text-xl`}
+                        >
+                          {stat.icon}
+                        </div>
+                        <div>
+                          <p className="text-[var(--muted-text)] text-xs md:text-sm">
+                            {stat.label}
+                          </p>
+                          <p className="text-xl md:text-2xl font-black text-[var(--text-color)]">
+                            {stat.val}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
 
                 {/* Content Section */}
-                <div className="bg-[var(--bg-content-color)] rounded-3xl p-8 border border-[var(--border-color)] shadow-xl">
-                  <h2 className="text-3xl font-black text-[var(--text-color)] mb-8 flex items-center gap-3">
+                <div className="bg-[var(--bg-content-color)] rounded-2xl md:rounded-3xl p-4 md:p-8 border border-[var(--border-color)] shadow-xl">
+                  <h2 className="text-xl md:text-3xl font-black text-[var(--text-color)] mb-6 md:mb-8 flex items-center gap-3">
                     <div
-                      className="w-2 h-8 rounded-full"
+                      className="w-1.5 h-6 md:w-2 md:h-8 rounded-full"
                       style={{
                         background: `linear-gradient(to bottom, ${accentColor}, ${accentDark})`,
                       }}
                     ></div>
-                    {isStudentView
-                      ? "Learning Materials"
-                      : "Class Announcements"}
+                    {isStudentView ? "Materials" : "Announcements"}
                   </h2>
 
                   {allContent.length === 0 ? (
-                    <div className="text-center py-16">
-                      <div className="w-24 h-24 bg-gradient-to-r from-[var(--hover-bg)] to-[var(--card-bg)] rounded-3xl flex items-center justify-center mx-auto mb-6">
-                        <IoSparkles className="text-4xl text-[var(--muted-text)]" />
-                      </div>
-                      <h3 className="text-2xl font-bold text-[var(--muted-text)] mb-3">
-                        {isStudentView
-                          ? "No materials yet"
-                          : "No announcements yet"}
+                    <div className="text-center py-10 md:py-16">
+                      <IoSparkles className="text-4xl md:text-6xl text-[var(--muted-text)] mx-auto mb-4 opacity-20" />
+                      <h3 className="text-lg md:text-2xl font-bold text-[var(--muted-text)]">
+                        Empty Stream
                       </h3>
-                      <p className="text-[var(--muted-text)] mb-6">
-                        {isStudentView
-                          ? "Your teacher will post materials here soon"
-                          : "Be the first to share something with the class"}
-                      </p>
-                      {!isStudentView && (
-                        <button
-                          onClick={() =>
-                            setShowModal({ open: true, editData: null })
-                          }
-                          className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-8 py-4 rounded-2xl font-bold hover:scale-105 transition-all duration-300 shadow-lg"
-                        >
-                          Create First Post
-                        </button>
-                      )}
                     </div>
                   ) : (
-                    <div className="space-y-6">
-                      {allContent
-                        .sort(
-                          (a, b) =>
-                            new Date(b.createdAt) - new Date(a.createdAt)
-                        )
-                        .map((item) => (
-                          <div
-                            key={item._id}
-                            className="group bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border-color)] hover:border-[var(--accent-color)] transition-all duration-500 hover:shadow-xl"
-                          >
-                            <div className="flex justify-between items-start mb-4">
-                              <div className="flex items-center gap-4">
-                                <div className="relative">
-                                  <div
-                                    className="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-bold text-lg"
-                                    style={{
-                                      background: `linear-gradient(to right, ${accentColor}, ${accentDark})`,
-                                    }}
-                                  >
-                                    {item.teacherID?.name?.charAt(0) || "T"}
-                                  </div>
-                                  <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-400 border-2 border-white rounded-full"></div>
-                                </div>
-                                <div>
-                                  <h4 className="font-bold text-[var(--text-color)] text-lg">
-                                    {item.teacherID?.name ||
-                                      (isStudentView
-                                        ? "Teacher"
-                                        : "Unknown Teacher")}
-                                  </h4>
-                                  <p className="text-[var(--muted-text)] text-sm">
-                                    {formatDate(item.createdAt)}
-                                  </p>
-                                </div>
+                    <div className="space-y-4 md:space-y-6">
+                      {allContent.map((item) => (
+                        <div
+                          key={item._id}
+                          className="bg-[var(--card-bg)] rounded-xl md:rounded-2xl p-4 md:p-6 border border-[var(--border-color)]"
+                        >
+                          <div className="flex justify-between items-start mb-4">
+                            <div className="flex items-center gap-3 md:gap-4">
+                              <div
+                                className="w-10 h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl flex items-center justify-center text-white font-bold text-base md:text-lg"
+                                style={{
+                                  background: `linear-gradient(to right, ${accentColor}, ${accentDark})`,
+                                }}
+                              >
+                                {item.teacherID?.name?.charAt(0) || "T"}
                               </div>
-
-                              {!isStudentView && (
-                                <div className="relative">
-                                  <button
-                                    onClick={() =>
-                                      setMenuOpen(
-                                        menuOpen === item._id ? null : item._id
-                                      )
-                                    }
-                                    className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
-                                  >
-                                    <IoSettings className="text-xl" />
-                                  </button>
-
-                                  {menuOpen === item._id && (
-                                    <div className="absolute right-0 top-12 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-2xl shadow-2xl z-10 overflow-hidden">
-                                      <button
-                                        onClick={() => {
-                                          setShowModal({
-                                            open: true,
-                                            editData: item,
-                                          });
-                                          setMenuOpen(null);
-                                        }}
-                                        className="flex items-center gap-3 px-6 py-4 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors w-full text-left"
-                                      >
-                                        <FaRegEdit className="text-cyan-500" />
-                                        Edit
-                                      </button>
-                                      <button
-                                        onClick={() => {
-                                          setDeleteId(item._id);
-                                          setShowConfirm(true);
-                                          setMenuOpen(null);
-                                        }}
-                                        className="flex items-center gap-3 px-6 py-4 text-red-600 dark:text-red-400 hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors w-full text-left"
-                                      >
-                                        <MdDelete />
-                                        Delete
-                                      </button>
-                                    </div>
-                                  )}
-                                </div>
-                              )}
-                            </div>
-
-                            {item.text && (
-                              <p className="text-[var(--text-color)] text-lg leading-relaxed mb-6">
-                                {item.text}
-                              </p>
-                            )}
-
-                            <div className="flex flex-wrap gap-3">
-                              {item.fileUrl && (
-                                <a
-                                  href={`${API_BASE}/${item.fileUrl}`}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="flex items-center gap-3 bg-[var(--hover-bg)] px-4 py-3 rounded-xl border border-[var(--border-color)] hover:border-[var(--accent-color)] transition-all duration-300 group"
-                                >
-                                  <VscFileSymlinkDirectory
-                                    className="text-xl"
-                                    style={{ color: accentColor }}
-                                  />
-                                  <span className="font-medium text-[var(--text-color)]">
-                                    {isStudentView
-                                      ? "Download Attachment"
-                                      : item.fileUrl.split("/").pop()}
-                                  </span>
-                                </a>
-                              )}
-                              {item.linkUrl && (
-                                <a
-                                  href={item.linkUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="flex items-center gap-3 bg-[var(--hover-bg)] px-4 py-3 rounded-xl border border-[var(--border-color)] hover:border-[var(--secondary-accent-color)] transition-all duration-300 group"
-                                >
-                                  <RiLinkM
-                                    className="text-xl"
-                                    style={{ color: secondaryAccentColor }}
-                                  />
-                                  <span className="font-medium text-[var(--text-color)]">
-                                    {isStudentView
-                                      ? "Open Resource"
-                                      : "Resource Link"}
-                                  </span>
-                                </a>
-                              )}
+                              <div>
+                                <h4 className="font-bold text-[var(--text-color)] text-sm md:text-lg">
+                                  {item.teacherID?.name || "Teacher"}
+                                </h4>
+                                <p className="text-[var(--muted-text)] text-[10px] md:text-sm">
+                                  {formatDate(item.createdAt)}
+                                </p>
+                              </div>
                             </div>
                           </div>
-                        ))}
+                          {item.text && (
+                            <p className="text-[var(--text-color)] text-sm md:text-lg mb-4">
+                              {item.text}
+                            </p>
+                          )}
+
+                          {/* Responsive Links/Buttons */}
+                          <div className="flex flex-col sm:flex-row gap-2">
+                            {item.fileUrl && (
+                              <a
+                                href={`${API_BASE}/${item.fileUrl}`}
+                                target="_blank"
+                                className="flex items-center gap-2 bg-[var(--hover-bg)] p-2 md:px-4 md:py-3 rounded-lg border text-xs md:text-sm font-medium"
+                              >
+                                <VscFileSymlinkDirectory
+                                  style={{ color: accentColor }}
+                                />{" "}
+                                Attachment
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -644,75 +549,48 @@ const CombinedViewClass = () => {
 
             {/* People Tab */}
             {activeTab === "people" && (
-              <div className="bg-[var(--content-bg)] rounded-3xl p-8 border border-[var(--border-color)] shadow-xl">
-                <h2 className="text-3xl font-black text-[var(--text-color)] mb-8 flex items-center gap-3">
+              <div className="bg-[var(--content-bg)] rounded-2xl md:rounded-3xl p-4 md:p-8 border border-[var(--border-color)]">
+                <h2 className="text-xl md:text-3xl font-black text-[var(--text-color)] mb-6 md:mb-8 flex items-center gap-3">
                   <div
-                    className="w-2 h-8 rounded-full"
+                    className="w-1.5 h-6 md:w-2 md:h-8 rounded-full"
                     style={{
                       background: `linear-gradient(to bottom, ${secondaryAccentColor}, ${secondaryAccentDark})`,
                     }}
                   ></div>
-                  {isStudentView ? "Classmates" : "Class Members"} (
-                  {people.length})
+                  Classmates ({people.length})
                 </h2>
-
-                {people.length === 0 ? (
-                  <div className="text-center py-16">
-                    <div className="w-24 h-24 bg-gradient-to-r from-[var(--hover-bg)] to-[var(--card-bg)] rounded-3xl flex items-center justify-center mx-auto mb-6">
-                      <RiUser3Fill className="text-4xl text-[var(--muted-text)]" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-[var(--muted-text)] mb-3">
-                      {isStudentView ? "No classmates yet" : "No students yet"}
-                    </h3>
-                    <p className="text-[var(--muted-text)]">
-                      {isStudentView
-                        ? "You're the first student in this class!"
-                        : "Students will appear here once they join your class"}
-                    </p>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {people.map((person) => (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {people.map((person) => (
+                    <div
+                      key={person._id}
+                      className="bg-[var(--card-bg)] rounded-xl p-4 border border-[var(--border-color)] flex flex-col items-center text-center"
+                    >
                       <div
-                        key={person._id}
-                        className="group bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border-color)] hover:border-[var(--secondary-accent-color)] transition-all duration-500 hover:shadow-xl"
+                        className="w-12 h-12 md:w-16 md:h-16 rounded-xl flex items-center justify-center text-white font-bold mb-3"
+                        style={{
+                          background: `linear-gradient(to right, ${secondaryAccentColor}, ${secondaryAccentDark})`,
+                        }}
                       >
-                        <div className="flex items-center gap-4 mb-4">
-                          <div className="relative">
-                            <div
-                              className="w-16 h-16 rounded-2xl flex items-center justify-center text-white font-bold text-xl"
-                              style={{
-                                background: `linear-gradient(to right, ${secondaryAccentColor}, ${secondaryAccentDark})`,
-                              }}
-                            >
-                              {person.name?.charAt(0).toUpperCase() || "?"}
-                            </div>
-                            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 border-2 border-white rounded-full"></div>
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="font-bold text-[var(--text-color)] text-lg">
-                              {person.name}
-                            </h3>
-                            <p className="text-[var(--muted-text)] text-sm truncate">
-                              {person.email}
-                            </p>
-                          </div>
-                        </div>
-
-                        <button
-                          onClick={() => {
-                            navigator.clipboard.writeText(person.email);
-                            toast.success("Email copied to clipboard! 📧");
-                          }}
-                          className="w-full bg-[var(--hover-bg)] text-[var(--text-color)] py-3 rounded-xl border border-[var(--border-color)] hover:border-[var(--secondary-accent-color)] transition-all duration-300 flex items-center justify-center gap-2 font-medium"
-                        >
-                          <MdEmail style={{ color: secondaryAccentColor }} />
-                          {isStudentView ? "Connect" : "Copy Email"}
-                        </button>
+                        {person.name?.charAt(0).toUpperCase()}
                       </div>
-                    ))}
-                  </div>
-                )}
+                      <h3 className="font-bold text-[var(--text-color)] text-sm md:text-base mb-1">
+                        {person.name}
+                      </h3>
+                      <p className="text-[var(--muted-text)] text-[10px] md:text-xs mb-4 truncate w-full">
+                        {person.email}
+                      </p>
+                      <button
+                        onClick={() => {
+                          navigator.clipboard.writeText(person.email);
+                          toast.success("Copied!");
+                        }}
+                        className="w-full bg-[var(--hover-bg)] py-2 rounded-lg text-xs font-bold"
+                      >
+                        Copy Email
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>
