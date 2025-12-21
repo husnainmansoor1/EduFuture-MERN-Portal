@@ -253,7 +253,7 @@ const CombinedViewClass = () => {
           }
         />
 
-        <div className="header-section max-w-full mt-8 p-6 mr-16 flex-1 ml-0 lg:ml-64 transition-all duration-300">
+        <div className="header-section max-w-full mt-8 p-6 md:mr-16 sm:mr-1 flex-1 ml-0 lg:ml-64 transition-all duration-300">
           {/* Header Section */}
           <div
             className="relative text-white lg:p-12 rounded-3xl p-8 border border-slate-200 dark:border-slate-700"
