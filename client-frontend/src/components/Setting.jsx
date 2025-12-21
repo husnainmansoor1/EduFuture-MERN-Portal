@@ -8,7 +8,7 @@ import Sidebar from "../components/Sidebar";
 
 export default function Setting() {
   const { theme, setTheme } = useTheme();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // sidebar toggle state
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // sidebar toggle state
 
   const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
