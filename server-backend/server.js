@@ -21,7 +21,10 @@ connectDB();
 // Middleware
 app.use(cors({
   origin: process.env.FRONTEND_URL, // frontend port
-  credentials: true
+  credentials: true,
+  methods:[ 'GET','HEAD','PUT','PATCH','POST','DELETE'],
+  allowHeaders:['content-type','Authorization']
+  
 }));
 app.use(express.json());
 
