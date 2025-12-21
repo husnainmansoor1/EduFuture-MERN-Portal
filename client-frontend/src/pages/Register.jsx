@@ -19,6 +19,7 @@ export default function Register() {
 
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const API_BASE = import.meta.env.VITE_API_URL;
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -30,7 +31,7 @@ export default function Register() {
     setIsLoading(true);
 
     try {
-      await axios.post("http://localhost:5000/api/auth/register", form);
+      await axios.post(`${API_BASE}/api/auth/register`, form);
 
       toast.success("Registration successful!", {
         position: "top-right",
