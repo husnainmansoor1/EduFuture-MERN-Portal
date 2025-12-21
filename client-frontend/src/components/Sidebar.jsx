@@ -20,12 +20,14 @@ export default function Sidebar({ onCreateClick, isOpen, onSettingClick }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const role = user?.role;
   const token = localStorage.getItem("token");
+    const API_BASE = import.meta.env.VITE_API_URL;
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (role === "teacher") {
-          const res = await axios.get("http://localhost:5000/api/classes/my", {
+          const res = await axios.get(`${API_BASE}/api/classes/my`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           setSubjects(
@@ -33,7 +35,7 @@ export default function Sidebar({ onCreateClick, isOpen, onSettingClick }) {
           );
         } else if (role === "student") {
           const res = await axios.get(
-            "http://localhost:5000/api/students/enrolled",
+            `${API_BASE}/api/students/enrolled`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }

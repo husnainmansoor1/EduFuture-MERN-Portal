@@ -46,11 +46,12 @@ export default function StudentDashboard() {
   });
 
   const token = localStorage.getItem("token");
+  const API_BASE = import.meta.env.VITE_API_URL;
 
   const fetchEnrolledClasses = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/students/enrolled",
+        `${API_BASE}/api/students/enrolled`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -101,7 +102,7 @@ export default function StudentDashboard() {
 
   const handleJoinClass = async (classCode) => {
     try {
-      await axios.post("http://localhost:5000/api/students/join", classCode, {
+      await axios.post(`${API_BASE}/api/students/join`, classCode, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setShowJoinModal(false);
@@ -117,7 +118,7 @@ export default function StudentDashboard() {
     if (window.confirm("Are you sure you want to leave this class?")) {
       try {
         await axios.delete(
-          `http://localhost:5000/api/students/leave/${classId}`,
+          `${API_BASE}/api/students/leave/${classId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

@@ -64,11 +64,12 @@ export default function TeacherDashboard() {
   });
 
   const token = localStorage.getItem("token");
+  const API_BASE = import.meta.env.VITE_API_URL;
 
   // Fetch Classes Function
   const fetchClasses = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/classes/my", {
+      const res = await axios.get(`${API_BASE}/api/classes/my`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setClasses(res.data);
@@ -129,7 +130,7 @@ export default function TeacherDashboard() {
 
   const handleCreate = async (data) => {
     try {
-      await axios.post("http://localhost:5000/api/classes/create", data, {
+      await axios.post(`${API_BASE}/api/classes/create`, data, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setShowModal(false);
@@ -142,7 +143,7 @@ export default function TeacherDashboard() {
   const handleUpdate = async (data) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/classes/${editClassData._id}`,
+        `${API_BASE}/api/classes/${editClassData._id}`,
         data,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -159,7 +160,7 @@ export default function TeacherDashboard() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/classes/delete/${id}`, {
+      await axios.delete(`${API_BASE}/api/classes/delete/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchClasses();
