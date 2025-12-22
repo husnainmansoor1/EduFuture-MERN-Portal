@@ -292,9 +292,9 @@ export default function FrontPage() {
 
                   {/* <!-- Subtle shine overlay --> */}
                   <linearGradient id="shine" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="white" stop-opacity="0.3" />
-                    <stop offset="50%" stop-color="white" stop-opacity="0" />
-                    <stop offset="100%" stop-color="white" stop-opacity="0.3" />
+                    <stop offset="0%" stopColor="white" stopOpacity="0.3" />
+                    <stop offset="50%" stopColor="white" stopOpacity="0" />
+                    <stop offset="100%" stopColor="white" stopOpacity="0.3" />
                   </linearGradient>
                 </defs>
 
@@ -342,9 +342,9 @@ export default function FrontPage() {
                 <text
                   x="10"
                   y="60"
-                  font-family="Manufacturing Consent, system-ui"
-                  font-size="60"
-                  font-weight="600"
+                  fontFamily="Manufacturing Consent, system-ui"
+                  fontSize="60"
+                  fontWeight="600"
                   fill="#ffffff"
                 >
                   Edu
@@ -354,9 +354,9 @@ export default function FrontPage() {
                 <text
                   x="160"
                   y="63"
-                  font-family="Inter, sans-serif"
-                  font-size="30"
-                  font-weight="900"
+                  fontFamily="Inter, sans-serif"
+                  fontSize="30"
+                  fontWeight="900"
                   fill="#06b6d4"
                 >
                   FUTURE

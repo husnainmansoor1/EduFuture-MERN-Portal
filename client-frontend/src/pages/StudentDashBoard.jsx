@@ -50,12 +50,9 @@ export default function StudentDashboard() {
 
   const fetchEnrolledClasses = async () => {
     try {
-      const res = await axios.get(
-        `${API_BASE}/api/students/enrolled`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const res = await axios.get(`${API_BASE}/api/students/enrolled`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       // Ensure it's always an array and remove null/undefined values
       const validClasses = Array.isArray(res.data)
@@ -102,27 +99,37 @@ export default function StudentDashboard() {
 
   const handleJoinClass = async (classCode) => {
     try {
-      await axios.post(`${API_BASE}/api/students/join`, classCode, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await axios.post(
+        `${API_BASE}/api/students/join`,
+        { classCode },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!res.data?.success) {
+        toast.error(res.data?.message || "Invalid class code");
+        return;
+      }
+
       setShowJoinModal(false);
       fetchEnrolledClasses();
       toast.success("Class joined successfully!", { autoClose: 2000 });
     } catch (error) {
-      console.error("Error joining class:", error);
-      toast.error("Failed to join class", { autoClose: 2000 });
+      toast.error(error.response?.data?.message || "Failed to join class", {
+        autoClose: 2000,
+      });
     }
   };
 
   const handleLeaveClass = async (classId) => {
     if (window.confirm("Are you sure you want to leave this class?")) {
       try {
-        await axios.delete(
-          `${API_BASE}/api/students/leave/${classId}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        await axios.delete(`${API_BASE}/api/students/leave/${classId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         toast.success("Class left successfully!", { autoClose: 2000 });
         fetchEnrolledClasses();
       } catch (error) {
