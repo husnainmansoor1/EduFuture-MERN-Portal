@@ -14,15 +14,15 @@ exports.register = async (req, res) => {
 
     // Strong Password Validation
     const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#^()_+\-={}[\]|\\:;"'<>,/])(?!.*\s).{8,}$/;
-
+      /^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&.#^()_+\-={}[\]|\\:;"'<>,/])(?!.*\s).{8,}$/;
+  
     if (!passwordRegex.test(password)) {
       return res.status(400).json({
         message:
-          "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.",
+          "Password must be at least 8 characters and include lowercase, number, and special character.",
       });
     }
-
+    
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -69,8 +69,7 @@ exports.login = async (req, res) => {
 
     // Check password
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch)
-      return res.status(400).json({ message: "Invalid password" });
+    if (!isMatch) return res.status(400).json({ message: "Invalid password" });
 
     // Generate token
     const token = jwt.sign(
