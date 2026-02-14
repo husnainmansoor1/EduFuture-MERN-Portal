@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Register from "./pages/Register";
-import Login from "./pages/Login";
+
+import Auth from "./pages/Auth";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import ViewClass from "./pages/ViewClass";
 import StudentDashBoard from "./pages/StudentDashBoard";
@@ -22,8 +22,8 @@ export default function App() {
           <Routes>
             <Route path="/" element={<FrontPage />} />
             {/* Public Routes */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Auth initialMode="login" />} />
+            <Route path="/register" element={<Auth initialMode="register" />} />
 
             {/* Teacher Routes */}
             <Route

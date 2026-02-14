@@ -59,25 +59,25 @@ export default function FrontPage() {
     },
   ];
 
-  const stats = [
-    { number: "50K+", label: "Active Students", icon: <FaGraduationCap /> },
-    { number: "5K+", label: "Educators", icon: <GiTeacher /> },
-    { number: "98%", label: "Satisfaction Rate", icon: <FaStar /> },
-    { number: "24/7", label: "Support", icon: <MdDashboard /> },
-  ];
-
   return (
-    <div className="min-h-screen bg-black font-inter overflow-hidden">
+    <div className="min-h-screen bg-[#0a0612] font-inter overflow-hidden">
       {/* Animated Background */}
       <div className="fixed inset-0">
         <div
-          className="absolute inset-0 opacity-40"
+          className="absolute inset-0 opacity-70"
           style={{
             background: `radial-gradient(800px at ${mousePosition.x}px ${mousePosition.y}px, rgba(120, 119, 198, 0.15), transparent 50%)`,
           }}
         />
         {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
+        <div
+          className="absolute inset-0
+             bg-[#0a0612] 
+             bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),
+                 linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)]
+             bg-[size:64px_64px] 
+             [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]"
+        />
 
         {/* Floating Particles */}
         {[...Array(30)].map((_, i) => (
@@ -155,7 +155,7 @@ export default function FrontPage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="relative py-32 px-4">
+      <section id="features" className="relative px-4">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
           <div className="text-center max-w-4xl mx-auto mb-20">
@@ -172,7 +172,7 @@ export default function FrontPage() {
           </div>
 
           {/* Interactive Features Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {features.map((feature, index) => (
               <div
                 key={index}
@@ -207,28 +207,11 @@ export default function FrontPage() {
               </div>
             ))}
           </div>
-
-          {/* Tech Showcase */}
-          <div className="text-center">
-            <div className="inline-flex items-center gap-8 bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl px-8 py-6">
-              {["AI-Powered", "Real-Time", "Secure", "Scalable"].map(
-                (tech, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-3 text-gray-300"
-                  >
-                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-                    <span className="font-semibold">{tech}</span>
-                  </div>
-                )
-              )}
-            </div>
-          </div>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="relative py-32 px-4">
+      <section className="relative py-28 px-4">
         <div className="max-w-4xl mx-auto text-center">
           {/* Animated Orb */}
           <div className="w-32 h-32 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full mx-auto mb-12 animate-pulse-slow shadow-2xl shadow-cyan-500/25" />
@@ -372,7 +355,7 @@ export default function FrontPage() {
 
           <div className="border-t border-white/10 pt-8">
             <p className="text-gray-500 text-sm">
-              &copy; 2024 EduFuture. Revolutionizing learning experiences
+              &copy; 2026 EduFuture. Revolutionizing learning experiences
               worldwide.
             </p>
           </div>
