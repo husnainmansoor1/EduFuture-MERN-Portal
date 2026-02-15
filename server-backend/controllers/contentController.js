@@ -43,7 +43,7 @@ exports.getClassContent = async (req, res) => {
     const contentList = await Content.find({
       classID: new mongoose.Types.ObjectId(classID),
     })
-      .populate("teacherID", "name")       
+      .populate("teacherID", "name image")       
       .populate("classID");                
     res.status(200).json(contentList);
   } catch (error) {

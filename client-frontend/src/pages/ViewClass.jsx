@@ -297,7 +297,7 @@ const CombinedViewClass = () => {
                           <button
                             onClick={() => {
                               navigator.clipboard.writeText(classData?.code);
-                              toast.success("Class code copied! 📋");
+                              toast.success("Class code copied! ");
                             }}
                             className="p-1.5 bg-white/10 rounded-lg hover:bg-white/20 transition-colors"
                           >
@@ -403,24 +403,26 @@ const CombinedViewClass = () => {
                 </span>
               </button>
 
-              <button
-                onClick={() => setActiveTab("people")}
-                className={`flex items-center justify-center flex-1 sm:flex-none gap-2 md:gap-3 px-3 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl font-bold text-sm md:text-lg transition-all duration-300 ${
-                  activeTab === "people"
-                    ? "text-white shadow-lg"
-                    : "text-[var(--text-color)]"
-                }`}
-                style={
-                  activeTab === "people"
-                    ? {
-                        background: `linear-gradient(to right, ${secondaryAccentColor}, ${secondaryAccentDark})`,
-                      }
-                    : {}
-                }
-              >
-                <MdGroups className="text-lg md:text-xl" />
-                <span className="whitespace-nowrap">({people.length})</span>
-              </button>
+              {!isStudentView && (
+                <button
+                  onClick={() => setActiveTab("people")}
+                  className={`flex items-center justify-center flex-1 sm:flex-none gap-2 md:gap-3 px-3 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl font-bold text-sm md:text-lg transition-all duration-300 ${
+                    activeTab === "people"
+                      ? "text-white shadow-lg"
+                      : "text-[var(--text-color)]"
+                  }`}
+                  style={
+                    activeTab === "people"
+                      ? {
+                          background: `linear-gradient(to right, ${secondaryAccentColor}, ${secondaryAccentDark})`,
+                        }
+                      : {}
+                  }
+                >
+                  <MdGroups className="text-lg md:text-xl" />
+                  <span className="whitespace-nowrap">({people.length})</span>
+                </button>
+              )}
             </div>
 
             {/* Stream Tab */}
@@ -503,10 +505,18 @@ const CombinedViewClass = () => {
                               <div
                                 className="w-10 h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl flex items-center justify-center text-white font-bold text-base md:text-lg"
                                 style={{
-                                  background: `linear-gradient(to right, ${accentColor}, ${accentDark})`,
+                                  background: item.teacherID?.image ? "transparent" : `linear-gradient(to right, ${accentColor}, ${accentDark})`,
                                 }}
                               >
-                                {item.teacherID?.name?.charAt(0) || "T"}
+                                {item.teacherID?.image ? (
+                                  <img 
+                                    src={item.teacherID.image} 
+                                    alt="Teacher" 
+                                    className="w-full h-full rounded-lg md:rounded-2xl object-cover"
+                                  />
+                                ) : (
+                                  item.teacherID?.name?.charAt(0) || "T"
+                                )}
                               </div>
                               <div>
                                 <h4 className="font-bold text-[var(--text-color)] text-sm md:text-lg">
@@ -517,25 +527,91 @@ const CombinedViewClass = () => {
                                 </p>
                               </div>
                             </div>
+                            
+                            {!isStudentView && (
+                              <div className="flex gap-2">
+                                <button 
+                                  onClick={() => setShowModal({ open: true, editData: item })}
+                                  className="text-purple-400 hover:text-purple-500 hover:bg-purple-500/10 p-2 rounded-lg transition-all"
+                                >
+                                  <FaRegEdit className="text-xl" />
+                                </button>
+                                <button 
+                                  onClick={() => {
+                                    setDeleteId(item._id);
+                                    setShowConfirm(true);
+                                  }}
+                                  className="text-red-400 hover:text-red-500 hover:bg-red-500/10 p-2 rounded-lg transition-all"
+                                >
+                                  <MdDelete className="text-xl" />
+                                </button>
+                              </div>
+                            )}
                           </div>
                           {item.text && (
-                            <p className="text-[var(--text-color)] text-sm md:text-lg mb-4">
+                            <p className="text-[var(--text-color)] text-sm md:text-lg mb-4 whitespace-pre-wrap">
                               {item.text}
                             </p>
                           )}
 
-                          {/* Responsive Links/Buttons */}
-                          <div className="flex flex-col sm:flex-row gap-2">
+                          {/* Responsive PDF/File Cards */}
+                          <div className="flex flex-wrap gap-4 mt-4">
                             {item.fileUrl && (
                               <a
                                 href={`${API_BASE}/${item.fileUrl}`}
                                 target="_blank"
-                                className="flex items-center gap-2 bg-[var(--hover-bg)] p-2 md:px-4 md:py-3 rounded-lg border text-xs md:text-sm font-medium"
+                                rel="noopener noreferrer"
+                                className="group flex items-center border border-[var(--border-color)] rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300 w-full sm:w-auto sm:min-w-[300px] h-24 bg-[var(--card-bg)] hover:bg-[var(--hover-bg)]"
                               >
-                                <VscFileSymlinkDirectory
-                                  style={{ color: accentColor }}
-                                />{" "}
-                                Attachment
+                                {/* Left Side: Preview/Icon */}
+                                <div className="w-24 h-full bg-red-500/10 flex items-center justify-center border-r border-[var(--border-color)] group-hover:bg-red-500/20 transition-colors">
+                                  {item.fileUrl.endsWith('.pdf') ? (
+                                    <div className="relative">
+                                      <div className="w-12 h-16 bg-white rounded shadow-sm flex items-center justify-center border border-gray-200">
+                                         <span className="text-[8px] text-gray-400 font-mono absolute top-2 left-2">PDF</span>
+                                         <div className="w-8 h-8 flex items-center justify-center">
+                                            <VscFileSymlinkDirectory className="text-red-500 text-2xl" />
+                                         </div>
+                                      </div>
+                                    </div>
+                                  ) : (
+                                     <VscFileSymlinkDirectory className="text-cyan-500 text-3xl" />
+                                  )}
+                                </div>
+                                
+                                {/* Right Side: Info */}
+                                <div className="flex-1 p-4 flex flex-col justify-center min-w-0">
+                                  <h4 className="font-bold text-[var(--text-color)] text-sm truncate group-hover:text-cyan-500 transition-colors">
+                                    {item.fileName || item.fileUrl.split(/[/\\]/).pop()}
+                                  </h4>
+                                  <p className="text-[10px] text-[var(--muted-text)] font-semibold uppercase mt-1">
+                                    {item.fileUrl.split('.').pop().toUpperCase()} FILE
+                                  </p>
+                                </div>
+                              </a>
+                            )}
+
+                            {item.linkUrl && (
+                              <a
+                                href={item.linkUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group flex items-center border border-[var(--border-color)] rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300 w-full sm:w-auto sm:min-w-[300px] h-24 bg-[var(--card-bg)] hover:bg-[var(--hover-bg)]"
+                              >
+                                {/* Left Side: Icon */}
+                                <div className="w-24 h-full bg-blue-500/10 flex items-center justify-center border-r border-[var(--border-color)] group-hover:bg-blue-500/20 transition-colors">
+                                  <RiLinkM className="text-blue-500 text-3xl" />
+                                </div>
+                                
+                                {/* Right Side: Info */}
+                                <div className="flex-1 p-4 flex flex-col justify-center min-w-0">
+                                  <h4 className="font-bold text-[var(--text-color)] text-sm truncate group-hover:text-blue-500 transition-colors">
+                                    {item.linkUrl}
+                                  </h4>
+                                  <p className="text-[10px] text-[var(--muted-text)] font-semibold uppercase mt-1">
+                                    EXTERNAL LINK
+                                  </p>
+                                </div>
                               </a>
                             )}
                           </div>
@@ -547,8 +623,8 @@ const CombinedViewClass = () => {
               </div>
             )}
 
-            {/* People Tab */}
-            {activeTab === "people" && (
+            {/* People Tab - Only visible to teachers */}
+            {activeTab === "people" && !isStudentView && (
               <div className="bg-[var(--content-bg)] rounded-2xl md:rounded-3xl p-4 md:p-8 border border-[var(--border-color)]">
                 <h2 className="text-xl md:text-3xl font-black text-[var(--text-color)] mb-6 md:mb-8 flex items-center gap-3">
                   <div
@@ -568,10 +644,18 @@ const CombinedViewClass = () => {
                       <div
                         className="w-12 h-12 md:w-16 md:h-16 rounded-xl flex items-center justify-center text-white font-bold mb-3"
                         style={{
-                          background: `linear-gradient(to right, ${secondaryAccentColor}, ${secondaryAccentDark})`,
+                          background: person.image ? "transparent" : `linear-gradient(to right, ${secondaryAccentColor}, ${secondaryAccentDark})`,
                         }}
                       >
-                        {person.name?.charAt(0).toUpperCase()}
+                        {person.image ? (
+                          <img 
+                            src={person.image} 
+                            alt={person.name} 
+                            className="w-full h-full rounded-xl object-cover"
+                          />
+                        ) : (
+                          person.name?.charAt(0).toUpperCase()
+                        )}
                       </div>
                       <h3 className="font-bold text-[var(--text-color)] text-sm md:text-base mb-1">
                         {person.name}

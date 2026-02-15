@@ -109,14 +109,12 @@ export default function StudentDashboard() {
         }
       );
 
-      if (!res.data?.success) {
-        toast.error(res.data?.message || "Invalid class code");
-        return;
-      }
+      toast.success("Class joined successfully!", { autoClose: 2000 });
+
+
 
       setShowJoinModal(false);
       fetchEnrolledClasses();
-      toast.success("Class joined successfully!", { autoClose: 2000 });
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to join class", {
         autoClose: 2000,
@@ -228,20 +226,7 @@ export default function StudentDashboard() {
           <div className="content-area max-w-full px-4 sm:px-6 lg:px-8 py-8">
             {/* Classes Section */}
             <div className="mb-12">
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-                <div className="relative">
-                  <h2 className="text-4xl font-black text-[var(--text-color)] mb-3">
-                    <span className="bg-gradient-to-r from-cyan-500 to-purple-600 bg-clip-text text-transparent">
-                      My Classes
-                    </span>
-                  </h2>
-                  <p className="text-[var(--muted-text)] max-w-2xl">
-                    Explore your enrolled classes, track progress, and access
-                    learning materials
-                  </p>
-                  <div className="absolute -top-2 -left-2 w-4 h-4 bg-purple-400 rounded-full animate-ping"></div>
-                </div>
-              </div>
+             
 
               {enrolledClasses.length === 0 ? (
                 <div className="bg-gradient-to-br from-white/90 to-gray-50/90 dark:from-gray-800/90 dark:to-gray-900/90 backdrop-blur-lg rounded-3xl p-16 border-2 border-dashed border-[var(--border-color)] text-center relative overflow-hidden">
