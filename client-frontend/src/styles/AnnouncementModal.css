@@ -2,44 +2,91 @@
 .annouce-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.65);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(10, 6, 18, 0.95) 100%);
+  backdrop-filter: blur(12px);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
-  backdrop-filter: blur(4px);
+  z-index: 9999;
+  animation: fadeInOverlay 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(12px);
+  }
 }
 
 .annouce-modal-box {
-  background: var(--modal-bg);
-  border-radius: 12px;
-  padding: 25px;
-  width: 420px;
+  background: linear-gradient(135deg, rgba(15, 10, 30, 0.95) 0%, rgba(5, 5, 15, 0.98) 100%);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 28px;
+  width: 520px;
   max-width: 90%;
   position: relative;
-  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 0.25s ease-in-out;
+  box-shadow: 
+    0 0 80px rgba(0, 0, 0, 0.6),
+    0 0 120px rgba(124, 58, 237, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  animation: fadeInModal 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .annouce-custom-file-upload {
   display: flex;
   width: 100%;
   align-items: center;
-  padding: 12px 19px;
-  gap: 10px;
-  background: var(--input-bg-2);
-  border: 2px solid #cbd5e1;
-  border-radius: 8px;
+  justify-content: space-between;
+  padding: 18px 22px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
-  transition: all 0.3s ease;
-  margin-bottom: 15px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #9ca3af;
+  position: relative;
+  overflow: hidden;
+}
+
+.annouce-custom-file-upload::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.annouce-custom-file-upload:hover::before {
+  opacity: 1;
 }
 
 .annouce-custom-file-upload:hover {
-  border-color: var(--primary-hover);
-  color: var(--muted-text);
+  border-color: rgba(168, 85, 247, 0.5);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 20px rgba(124, 58, 237, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .annouce-custom-file-upload input[type="file"] {
@@ -47,16 +94,28 @@
 }
 
 .annouce-file-chosen {
-  font-size: 13px;
-  color: var(--muted-text);
+  font-size: 12px;
+  color: #6b7280;
   font-style: italic;
-  margin-left: 6px;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-@keyframes fadeIn {
+/* Input wrapper staggered animation */
+.input-wrapper {
+  animation: slideInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+@keyframes slideInUp {
   from {
     opacity: 0;
-    transform: translateY(-12px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -65,14 +124,34 @@
 }
 
 /* Responsive */
+@media (max-width: 768px) {
+  .annouce-modal-box {
+    width: 88%;
+    padding: 35px;
+  }
+}
+
 @media (max-width: 480px) {
   .annouce-modal-box {
-    width: 80%;
-    padding: 20px;
-    margin-top: -100px;
+    width: 92%;
+    padding: 28px;
+    border-radius: 24px;
+    margin-top: -60px;
   }
 
   .annouce-custom-file-upload {
-    width: 95%;
+    flex-wrap: wrap;
+    padding: 16px 18px;
+    gap: 8px;
+  }
+
+  .annouce-file-chosen {
+    max-width: 100%;
+    width: 100%;
+    margin-top: 8px;
+  }
+  
+  .input-wrapper {
+    animation-duration: 0.4s;
   }
 }

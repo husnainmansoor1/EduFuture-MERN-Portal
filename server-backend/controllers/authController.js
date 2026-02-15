@@ -86,9 +86,43 @@ exports.login = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        image: user.image,
       },
     });
   } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
+// ================= Update Profile ===================
+exports.updateProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (req.file) {
+      // Normalize path separators for Windows
+      const normalizedPath = req.file.path.replace(/\\/g, "/"); 
+      const baseUrl = process.env.BASE_URL || `${req.protocol}://${req.get("host")}`;
+      user.image = `${baseUrl}/${normalizedPath}`;
+    }
+
+    await user.save();
+
+    res.status(200).json({
+      message: "Profile updated successfully",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        image: user.image,
+      },
+    });
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };

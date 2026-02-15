@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema(
       enum: ["teacher", "student"],
       required: true,
     },
+    image: {
+      type: String,
+      default: "",
+    },
   },
   { timestamps: true }
 );

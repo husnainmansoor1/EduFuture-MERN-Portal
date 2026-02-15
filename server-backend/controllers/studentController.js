@@ -5,11 +5,11 @@ const User = require("../models/User");
 // Join a class using class code
 exports.joinClass = async (req, res) => {
   try {
-    const { code } = req.body;
+    const { classCode } = req.body;
     const studentId = req.user._id;
 
     // Find the class by code
-    const classData = await Class.findOne({ code }).populate("teacher", "name");
+    const classData = await Class.findOne({ code: classCode }).populate("teacher", "name");
 
     if (!classData) {
       return res
@@ -133,7 +133,7 @@ exports.getClassStudents = async (req, res) => {
     const { classId } = req.params;
 
     const enrollments = await Enrollment.find({ class: classId })
-      .populate("student", "name email"); 
+      .populate("student", "name email image"); 
 
     if (!enrollments || enrollments.length === 0) {
       return res.status(404).json({ message: "No students found for this class" });

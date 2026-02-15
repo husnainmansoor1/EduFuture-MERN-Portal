@@ -77,11 +77,11 @@ export default function TeacherDashboard() {
       // Calculate stats
       const totalStudents = res.data.reduce(
         (acc, cls) => acc + (cls.studentsCount || 0),
-        0
+        0,
       );
       const totalResources = res.data.reduce(
         (acc, cls) => acc + (cls.resourcesCount || 0),
-        0
+        0,
       );
       const activeClasses = res.data.filter((cls) => cls.isActive).length;
       const engagementRate =
@@ -89,7 +89,7 @@ export default function TeacherDashboard() {
           ? Math.round(
               (res.data.filter((cls) => cls.studentsCount > 0).length /
                 res.data.length) *
-                100
+                100,
             )
           : 0;
 
@@ -142,13 +142,9 @@ export default function TeacherDashboard() {
 
   const handleUpdate = async (data) => {
     try {
-      await axios.put(
-        `${API_BASE}/api/classes/${editClassData._id}`,
-        data,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      await axios.put(`${API_BASE}/api/classes/${editClassData._id}`, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setShowModal(false);
       setIsEditMode(false);
       setEditClassData(null);
@@ -234,19 +230,6 @@ export default function TeacherDashboard() {
                     interactive classrooms, and seamless student management
                     tools.
                   </p>
-
-                  <div className="flex flex-wrap gap-4">
-                    <button
-                      onClick={openCreateModal}
-                      className="group relative bg-gradient-to-r from-purple-600 to-cyan-500 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-purple-500/30 flex items-center gap-3 overflow-hidden"
-                    >
-                      <span className="relative z-10 flex items-center gap-3">
-                        <FaRocket className="group-hover:animate-bounce" />
-                        Launch New Class
-                      </span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>
@@ -256,21 +239,6 @@ export default function TeacherDashboard() {
           <div className="content-area max-w-full px-4 sm:px-6 lg:px-8 py-8">
             {/* Classes Section with Premium Design */}
             <div className="mb-12">
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-                <div className="relative">
-                  <h2 className="text-4xl font-black text-[var(--text-color)] mb-3">
-                    <span className="bg-gradient-to-r from-purple-600 to-cyan-500 bg-clip-text text-transparent">
-                      My Classes
-                    </span>
-                  </h2>
-                  <p className="text-[var(--muted-text)] max-w-2xl">
-                    Manage and organize your teaching spaces with advanced
-                    features and analytics
-                  </p>
-                  <div className="absolute -top-2 -left-2 w-4 h-4 bg-cyan-400 rounded-full animate-ping"></div>
-                </div>
-              </div>
-
               {classes.length === 0 ? (
                 <div className="bg-gradient-to-br from-white/90 to-gray-50/90 dark:from-gray-800/90 dark:to-gray-900/90 backdrop-blur-lg rounded-3xl p-16 border-2 border-dashed border-[var(--border-color)] text-center relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-cyan-500/5"></div>
