@@ -44,6 +44,12 @@ const CombinedViewClass = () => {
   const { getBackground } = useBackgrounds();
   const background = getBackground(classData._id);
   const API_BASE = import.meta.env.VITE_API_URL;
+  
+  const getImageUrl = (path) => {
+    if (!path) return null;
+    if (path.startsWith("http")) return path;
+    return `${API_BASE}/${path}`;
+  };
 
   // Determine user role from localStorage
   const user = JSON.parse(localStorage.getItem("user"));
@@ -510,7 +516,7 @@ const CombinedViewClass = () => {
                               >
                                 {item.teacherID?.image ? (
                                   <img 
-                                    src={item.teacherID.image} 
+                                    src={getImageUrl(item.teacherID.image)} 
                                     alt="Teacher" 
                                     className="w-full h-full rounded-lg md:rounded-2xl object-cover"
                                   />
@@ -649,7 +655,7 @@ const CombinedViewClass = () => {
                       >
                         {person.image ? (
                           <img 
-                            src={person.image} 
+                            src={getImageUrl(person.image)} 
                             alt={person.name} 
                             className="w-full h-full rounded-xl object-cover"
                           />

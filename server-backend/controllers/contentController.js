@@ -12,7 +12,7 @@ exports.createContent = async (req, res) => {
     let fileUrl = "";
 
     if (req.file) {
-      fileUrl = req.file.path;
+      fileUrl = req.file.path.replace(/\\/g, "/");
     }
 
     const newContent = await Content.create({
@@ -92,7 +92,7 @@ exports.updateContent = async (req, res) => {
     content.linkUrl = linkUrl || content.linkUrl;
 
     if (req.file) {
-      content.fileUrl = req.file.path; // new file uploaded
+      content.fileUrl = req.file.path.replace(/\\/g, "/"); // new file uploaded
     }
 
     const updated = await content.save();

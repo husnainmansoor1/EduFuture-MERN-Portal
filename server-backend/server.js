@@ -29,10 +29,14 @@ app.use(cors({
 app.use(express.json());
 
 // Serve uploaded files
-// ensure uploads dir exists
 const uploadsPath = path.join(__dirname, "uploads");
+const profileImagesPath = path.join(__dirname, "profile_images");
+
 fs.mkdirSync(uploadsPath, { recursive: true });
+fs.mkdirSync(profileImagesPath, { recursive: true });
+
 app.use("/uploads", express.static(uploadsPath));
+app.use("/profile_images", express.static(profileImagesPath));
 
 // Routes
 app.use("/api/auth", authRegister);            // Auth Routes

@@ -1,4 +1,4 @@
-import { FaSignOutAlt, FaPlus, FaBars, FaUserCircle, FaCamera } from "react-icons/fa";
+import { FaSignOutAlt, FaPlus, FaBars, FaUserCircle, FaCamera, FaTrash, FaTimes } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import "../styles/Navbar.css";
@@ -13,12 +13,19 @@ export default function Navbar({ onCreateClick, onSidebarToggle }) {
 
   const { theme, setTheme } = useTheme();
   const [showProfile, setShowProfile] = useState(false);
+  const [showFullscreen, setShowFullscreen] = useState(false);
   const profileRef = useRef(null);
   const fileInputRef = useRef(null);
 
   const token = localStorage.getItem("token");
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || {});
   const API_BASE = import.meta.env.VITE_API_URL;
+  
+  const getImageUrl = (path) => {
+    if (!path) return null;
+    if (path.startsWith("http")) return path;
+    return `${API_BASE}/${path}`;
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -27,7 +34,34 @@ export default function Navbar({ onCreateClick, onSidebarToggle }) {
     toast.success("Logged out successfully", { duration: 2000 });
   };
 
+  const handleImageDelete = async () => {
+    if (!window.confirm("Are you sure you want to delete your profile picture?")) return;
+
+    try {
+      const res = await axios.delete(`${API_BASE}/api/auth/profile/image`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const updatedUser = { ...user, image: "" };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      setUser(updatedUser);
+      toast.success(res.data.message);
+    } catch (error) {
+      console.error("Delete image error:", error);
+      toast.error(error.response?.data?.message || "Failed to delete image");
+    }
+  };
+
   const handleImageClick = () => {
+    if (user?.image) {
+      setShowFullscreen(true);
+    } else {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleEditClick = (e) => {
+    e.stopPropagation();
     fileInputRef.current.click();
   };
 
@@ -194,7 +228,7 @@ export default function Navbar({ onCreateClick, onSidebarToggle }) {
             >
                  {user?.image ? (
                   <img
-                    src={user.image}
+                    src={getImageUrl(user.image)}
                     alt="Profile"
                     className="w-10 h-10 rounded-full object-cover border-2 border-transparent hover:border-gray-200"
                   />
@@ -208,18 +242,34 @@ export default function Navbar({ onCreateClick, onSidebarToggle }) {
                 {/* Profile Header (Centered) */}
                 <div className="flex flex-col items-center pt-8 pb-4 border-b border-gray-200 dark:border-gray-700">
                    <div className="relative group cursor-pointer mb-3" onClick={handleImageClick}>
-                      <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-gray-200 dark:border-gray-600">
+                      <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white dark:border-gray-700 shadow-lg transition-transform hover:scale-105">
                           {user?.image ? (
-                            <img src={user.image} alt="Profile" className="w-full h-full object-cover" />
+                            <img src={getImageUrl(user.image)} alt="Profile" className="w-full h-full object-cover" />
                           ) : (
-                             <div className="w-full h-full bg-purple-500 flex items-center justify-center text-white text-3xl font-bold">
+                             <div className="w-full h-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white text-4xl font-bold">
                                 {user?.name?.charAt(0).toUpperCase()}
                              </div>
                           )}
                       </div>
-                      {/* Camera Overlay */}
-                      <div className="absolute bottom-0 right-0 bg-white dark:bg-gray-700 p-1.5 rounded-full shadow-md border border-gray-200 dark:border-gray-600">
-                          <FaCamera className="text-gray-600 dark:text-gray-300 text-xs" />
+                      
+                      {/* Icons Overlay */}
+                      <div className="absolute inset-0 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 rounded-full">
+                        <button 
+                          onClick={handleEditClick}
+                          className="bg-white/20 hover:bg-white/40 p-2 rounded-full text-white backdrop-blur-sm transition-colors"
+                          title="Change Photo"
+                        >
+                          <FaCamera size={16} />
+                        </button>
+                        {user?.image && (
+                          <button 
+                            onClick={(e) => { e.stopPropagation(); handleImageDelete(); }}
+                            className="bg-red-500/80 hover:bg-red-500 p-2 rounded-full text-white backdrop-blur-sm transition-colors"
+                            title="Delete Photo"
+                          >
+                            <FaTrash size={14} />
+                          </button>
+                        )}
                       </div>
                       <input 
                         type="file" 
@@ -262,6 +312,27 @@ export default function Navbar({ onCreateClick, onSidebarToggle }) {
           </div>
         )}
       </div>
+      {/* Fullscreen Modal */}
+      {showFullscreen && user?.image && (
+        <div 
+          className="fixed inset-0 z-[1100] bg-black/95 flex items-center justify-center backdrop-blur-md p-4 animate-fadeIn"
+          onClick={() => setShowFullscreen(false)}
+        >
+          <button 
+            className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors"
+            onClick={() => setShowFullscreen(false)}
+          >
+            <FaTimes size={30} />
+          </button>
+          
+          <img 
+            src={getImageUrl(user.image)} 
+            alt="Profile Full View" 
+            className="max-w-full max-h-full rounded-lg shadow-2xl animate-zoomIn"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </nav>
   );
 }
