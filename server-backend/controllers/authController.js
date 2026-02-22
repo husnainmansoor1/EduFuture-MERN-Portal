@@ -103,10 +103,9 @@ exports.updateProfile = async (req, res) => {
     }
 
     if (req.file) {
-      // Normalize path separators for Windows
+      // Normalize path separators for Windows and store only the relative path
       const normalizedPath = req.file.path.replace(/\\/g, "/"); 
-      const baseUrl = process.env.BASE_URL || `${req.protocol}://${req.get("host")}`;
-      user.image = `${baseUrl}/${normalizedPath}`;
+      user.image = normalizedPath;
     }
 
     await user.save();
@@ -124,5 +123,40 @@ exports.updateProfile = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
+exports.deleteProfileImage = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (user.image) {
+      const fs = require("fs");
+      const path = require("path");
+      const filePath = path.join(__dirname, "..", user.image);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    }
+
+    user.image = "";
+    await user.save();
+
+    res.status(200).json({
+      message: "Profile image deleted successfully",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        image: user.image,
+      },
+    });
+  } catch (error) {
+    console.error("Delete profile image error:", error);
+    res.status(500).json({ message: "Server error" });
   }
 };
