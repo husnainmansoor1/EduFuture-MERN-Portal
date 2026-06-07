@@ -14,6 +14,13 @@ import "react-toastify/dist/ReactToastify.css";
 import FrontPage from "./pages/FrontPage";
 import Setting from "./components/Setting";
 
+// Admin Pages
+import AdminPending from "./pages/AdminPending";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminStudents from "./pages/AdminStudents";
+import AdminTeachers from "./pages/AdminTeachers";
+import AdminApprovals from "./pages/AdminApprovals";
+
 export default function App() {
   return (
     <ThemeProvider>
@@ -24,6 +31,48 @@ export default function App() {
             {/* Public Routes */}
             <Route path="/login" element={<Auth initialMode="login" />} />
             <Route path="/register" element={<Auth initialMode="register" />} />
+
+            {/* Admin Routes */}
+            <Route
+              path="/admin/pending"
+              element={<AdminPending />}
+            />
+            <Route
+              path="/dashboard/admin"
+              element={
+                <ProtectedRoute
+                  element={() => <AdminDashboard />}
+                  role="admin"
+                />
+              }
+            />
+            <Route
+              path="/admin/students"
+              element={
+                <ProtectedRoute
+                  element={() => <AdminStudents />}
+                  role="admin"
+                />
+              }
+            />
+            <Route
+              path="/admin/teachers"
+              element={
+                <ProtectedRoute
+                  element={() => <AdminTeachers />}
+                  role="admin"
+                />
+              }
+            />
+            <Route
+              path="/admin/approvals"
+              element={
+                <ProtectedRoute
+                  element={() => <AdminApprovals />}
+                  role="admin"
+                />
+              }
+            />
 
             {/* Teacher Routes */}
             <Route

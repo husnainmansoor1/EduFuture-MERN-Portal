@@ -36,7 +36,22 @@ exports.register = async (req, res) => {
 
     await user.save();
 
-    // Create JWT
+    // If registering as admin, don't issue token — require approval
+    if (role === "admin") {
+      return res.status(201).json({
+        message: "Admin registration submitted. Please wait for approval from an existing admin.",
+        pendingApproval: true,
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          adminStatus: user.adminStatus,
+        },
+      });
+    }
+
+    // Create JWT for non-admin users
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_SECRET,
@@ -51,6 +66,7 @@ exports.register = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        adminStatus: user.adminStatus,
       },
     });
   } catch (err) {
@@ -71,6 +87,22 @@ exports.login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: "Invalid password" });
 
+    // Check admin approval status
+    if (user.role === "admin") {
+      if (user.adminStatus === "pending") {
+        return res.status(403).json({
+          message: "Your admin account is pending approval. Please contact an existing admin.",
+          adminStatus: "pending",
+        });
+      }
+      if (user.adminStatus === "rejected") {
+        return res.status(403).json({
+          message: "Your admin registration has been rejected.",
+          adminStatus: "rejected",
+        });
+      }
+    }
+
     // Generate token
     const token = jwt.sign(
       { id: user._id, role: user.role },
@@ -87,6 +119,7 @@ exports.login = async (req, res) => {
         email: user.email,
         role: user.role,
         image: user.image,
+        adminStatus: user.adminStatus,
       },
     });
   } catch (err) {
