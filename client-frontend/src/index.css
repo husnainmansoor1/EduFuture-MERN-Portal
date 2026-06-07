@@ -230,3 +230,188 @@ img {
 .text-balance {
   text-wrap: balance;
 }
+
+/* =============================================================== */
+/* ================= Admin Light Theme Overrides ================= */
+/* =============================================================== */
+body.admin-view.light-theme {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+body.admin-view.light-theme .min-h-screen {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+/* Background Glowing Blobs - change opacity in light theme */
+body.admin-view.light-theme .fixed .bg-purple-900\/10,
+body.admin-view.light-theme .fixed .bg-indigo-900\/10 {
+  background-color: rgba(139, 92, 246, 0.03) !important;
+}
+
+/* Text adaptations */
+body.admin-view.light-theme .text-white,
+body.admin-view.light-theme h1,
+body.admin-view.light-theme h2,
+body.admin-view.light-theme h3,
+body.admin-view.light-theme h4 {
+  color: #0f172a !important;
+}
+
+body.admin-view.light-theme .text-gray-200 {
+  color: #1e293b !important;
+}
+
+body.admin-view.light-theme .text-gray-300 {
+  color: #334155 !important;
+}
+
+body.admin-view.light-theme .text-gray-400,
+body.admin-view.light-theme .text-gray-500 {
+  color: #64748b !important;
+}
+
+/* Keep accent colors readable in light mode */
+body.admin-view.light-theme .text-purple-400 { color: #6d28d9 !important; }
+body.admin-view.light-theme .text-cyan-400 { color: #0891b2 !important; }
+body.admin-view.light-theme .text-pink-400 { color: #db2777 !important; }
+body.admin-view.light-theme .text-red-400 { color: #dc2626 !important; }
+body.admin-view.light-theme .text-emerald-400 { color: #059669 !important; }
+
+/* Sidebar */
+body.admin-view.light-theme aside {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border-right-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+body.admin-view.light-theme aside a,
+body.admin-view.light-theme aside button {
+  color: #64748b !important;
+}
+
+body.admin-view.light-theme aside a:hover,
+body.admin-view.light-theme aside button:hover {
+  color: #0f172a !important;
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+body.admin-view.light-theme aside .text-white {
+  color: #ffffff !important; /* Keep white text for active states with gradients */
+}
+
+/* Cards & Containers */
+body.admin-view.light-theme .bg-black\/20,
+body.admin-view.light-theme .bg-black\/30,
+body.admin-view.light-theme .bg-black\/40,
+body.admin-view.light-theme .bg-\[\#0e091a\]\/40 {
+  background-color: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Welcome Banner */
+body.admin-view.light-theme .bg-gradient-to-r.from-purple-900\/30 {
+  background-image: linear-gradient(to right, rgba(139, 92, 246, 0.08), rgba(99, 102, 241, 0.05), rgba(255, 255, 255, 0.5)) !important;
+  border-color: rgba(139, 92, 246, 0.15) !important;
+}
+
+/* Stats Cards */
+body.admin-view.light-theme .grid .bg-gradient-to-br {
+  background-color: #ffffff !important;
+  background-image: none !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+}
+
+body.admin-view.light-theme .grid .border-purple-500\/20 { border-color: rgba(139, 92, 246, 0.25) !important; }
+body.admin-view.light-theme .grid .border-cyan-500\/20 { border-color: rgba(6, 182, 212, 0.25) !important; }
+body.admin-view.light-theme .grid .border-pink-500\/20 { border-color: rgba(236, 72, 153, 0.25) !important; }
+body.admin-view.light-theme .grid .border-emerald-500\/20 { border-color: rgba(16, 185, 129, 0.25) !important; }
+body.admin-view.light-theme .grid .border-red-500\/30 { border-color: rgba(239, 68, 68, 0.25) !important; }
+
+/* In-card items */
+body.admin-view.light-theme .bg-white\/5 {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+body.admin-view.light-theme .border-white\/5,
+body.admin-view.light-theme .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Forms & Selects */
+body.admin-view.light-theme select,
+body.admin-view.light-theme input {
+  background-color: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.15) !important;
+  color: #0f172a !important;
+}
+
+body.admin-view.light-theme select:focus,
+body.admin-view.light-theme input:focus {
+  border-color: #8b5cf6 !important;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.1) !important;
+}
+
+body.admin-view.light-theme select option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+/* Tables */
+body.admin-view.light-theme table thead tr {
+  background-color: #f1f5f9 !important;
+}
+
+body.admin-view.light-theme table thead th {
+  color: #475569 !important;
+}
+
+body.admin-view.light-theme table tbody tr {
+  border-bottom-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+body.admin-view.light-theme table tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.02) !important;
+}
+
+body.admin-view.light-theme .divide-white\/5 > :not([hidden]) ~ :not([hidden]) {
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Details Modal & Card */
+body.admin-view.light-theme .fixed .bg-\[\#0f0a1c\] {
+  background-color: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+body.admin-view.light-theme .fixed .bg-white\/5 {
+  background-color: #f8fafc !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+body.admin-view.light-theme .fixed .text-white {
+  color: #ffffff !important; /* Keep close button and header text white */
+}
+
+body.admin-view.light-theme .fixed .text-purple-400 {
+  color: #7c3aed !important;
+}
+
+body.admin-view.light-theme .fixed .bg-purple-900\/20 {
+  background-color: rgba(139, 92, 246, 0.1) !important;
+}
+
+body.admin-view.light-theme .fixed .bg-cyan-500\/10 {
+  background-color: rgba(6, 182, 212, 0.1) !important;
+}
+
+body.admin-view.light-theme .min-h-screen button.text-white {
+  color: #ffffff !important; /* Keep gradient action button text white */
+}
+
+body.admin-view.light-theme .min-h-screen button.border-white\/10 {
+  color: #0f172a !important; /* Back to login button style */
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
