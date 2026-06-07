@@ -9,6 +9,8 @@ const authRegister = require("./routes/auth");
 const ClassRoute = require("./routes/classRoutes");
 const contentRoutes = require("./routes/contentRoutes");
 const studentRoutes = require("./routes/studentRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+const { seedSuperAdmin } = require("./controllers/adminController");
 
 dotenv.config();
 
@@ -16,7 +18,9 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Connect to MongoDB
-connectDB();
+connectDB().then(() => {
+  seedSuperAdmin();
+});
 
 // Middleware
 app.use(cors({
@@ -43,6 +47,7 @@ app.use("/api/auth", authRegister);            // Auth Routes
 app.use("/api/classes", ClassRoute);           // Class Routes
 app.use("/api", contentRoutes);                // Content Routes
 app.use("/api/students", studentRoutes);      // Student Routes
+app.use("/api/admin", adminRoutes);            // Admin Routes
 
 // Start server
 app.listen(PORT, "0.0.0.0", () => {

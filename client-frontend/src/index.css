@@ -159,6 +159,22 @@ body.teacher-view {
   --secondary-gradient-to: var(--teacher-secondary-accent-dark);
 }
 
+/* Admin Theme Variables (will be set via JS) */
+body.admin-view {
+  --primary-gradient-from: #8b5cf6;
+  --primary-gradient-to: #6366f1;
+  --accent-color: #8b5cf6;
+  --accent-dark: #7c3aed;
+  --secondary-accent-color: #4f46e5;
+  --secondary-accent-dark: #4338ca;
+  --tab-gradient-from: #8b5cf6;
+  --tab-gradient-to: #6366f1;
+  --secondary-tab-gradient-from: #06b6d4;
+  --secondary-tab-gradient-to: #3b82f6;
+  --secondary-gradient-from: #4f46e5;
+  --secondary-gradient-to: #4338ca;
+}
+
 /* Apply theme variables globally */
 body {
   margin: 0;

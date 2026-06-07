@@ -61,11 +61,13 @@ export default function Auth({ initialMode = "login" }) {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
-        toast.success("Login successful", { theme: "dark", autoClose: 2000 });
+      toast.success("Login successful", { theme: "dark", autoClose: 2000 });
 
       // Small delay to show success before redirect
       setTimeout(() => {
-        if (res.data.user.role === "teacher") {
+        if (res.data.user.role === "admin") {
+          navigate("/dashboard/admin");
+        } else if (res.data.user.role === "teacher") {
           navigate("/dashboard/teacher");
         } else if (res.data.user.role === "student") {
           navigate("/dashboard/student");
@@ -74,6 +76,13 @@ export default function Auth({ initialMode = "login" }) {
     } catch (err) {
       const msg = err.response?.data?.message || "Login failed";
       setError(msg);
+
+      const adminStatus = err.response?.data?.adminStatus;
+      if (adminStatus === "pending" || adminStatus === "rejected") {
+        setTimeout(() => {
+          navigate("/admin/pending", { state: { status: adminStatus } });
+        }, 1500);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -85,19 +94,32 @@ export default function Auth({ initialMode = "login" }) {
     setIsLoading(true);
 
     try {
-      await axios.post(`${API_BASE}/api/auth/register`, registerForm);
+      const res = await axios.post(`${API_BASE}/api/auth/register`, registerForm);
 
-      toast.success("Registration successful! Please login.", {
-        theme: "dark",
-        position: "top-right",
-        autoClose: 2000,
-      });
+      if (res.data.pendingApproval) {
+        toast.success("Registration submitted! Pending approval.", {
+          theme: "dark",
+          position: "top-right",
+          autoClose: 2000,
+        });
 
-      // Switch to login view after success
-      setTimeout(() => {
-        navigate("/login");
-        setRegisterForm({ name: "", email: "", password: "", role: "" }); // Reset form
-      }, 1500);
+        setTimeout(() => {
+          navigate("/admin/pending", { state: { status: "pending" } });
+          setRegisterForm({ name: "", email: "", password: "", role: "" }); // Reset form
+        }, 1500);
+      } else {
+        toast.success("Registration successful! Please login.", {
+          theme: "dark",
+          position: "top-right",
+          autoClose: 2000,
+        });
+
+        // Switch to login view after success
+        setTimeout(() => {
+          navigate("/login");
+          setRegisterForm({ name: "", email: "", password: "", role: "" }); // Reset form
+        }, 1500);
+      }
     } catch (err) {
       const msg = err.response?.data?.message || "Registration failed";
       setError(msg);
@@ -303,6 +325,7 @@ export default function Auth({ initialMode = "login" }) {
                         <option value="" disabled className="bg-gray-900">Select your Role</option>
                         <option value="student" className="bg-gray-900">Student</option>
                         <option value="teacher" className="bg-gray-900">Teacher</option>
+                        <option value="admin" className="bg-gray-900">Admin</option>
                       </select>
                       <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                         <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
